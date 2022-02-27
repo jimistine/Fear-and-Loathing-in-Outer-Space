@@ -100,7 +100,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 0, b: 0, a: 0}
     m_HighlightedColor: {r: 0.5283019, g: 0, b: 0, a: 0.36862746}
     m_PressedColor: {r: 0.18867922, g: 0, b: 0, a: 0.62352943}
-    m_SelectedColor: {r: 0.3773585, g: 0, b: 0, a: 0.1764706}
+    m_SelectedColor: {r: 0.3773585, g: 0, b: 0, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -278,9 +278,11 @@ GameObject:
   - component: {fileID: 1250022035355972956}
   - component: {fileID: 1250022035355972957}
   - component: {fileID: 382085848451471665}
+  - component: {fileID: 3766223184456622517}
+  - component: {fileID: 2082980494506108812}
   m_Layer: 5
   m_Name: ApprenticeCard
-  m_TagString: Untagged
+  m_TagString: candidate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,6 +368,38 @@ MonoBehaviour:
     confidence: 0
     skill: 0
     attribtues: []
+  cardAnimator: {fileID: 3766223184456622517}
+--- !u!95 &3766223184456622517
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250022035355972959}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1e75250c8498e3246918bbfb761de548, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &2082980494506108812
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250022035355972959}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1250022036255404001
 GameObject:
   m_ObjectHideFlags: 0

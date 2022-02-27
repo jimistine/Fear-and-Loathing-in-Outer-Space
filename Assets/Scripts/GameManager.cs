@@ -5,8 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
-    public Apprentice currentApprentice;
+    public ApprenticeManager AM;
+    //public Apprentice currentApprentice;
     public ApprenticeGenerator AG;
+    public MissionGenerator MG;
 
     void Awake(){
         GM = this;
@@ -20,6 +22,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+    public void ApprenticeChosen(Apprentice newApprentice){
+        //currentApprentice = newApprentice;
+        AM.apprentice = newApprentice;
+        MG.GenerateMissions();
         
     }
     /*

@@ -7,6 +7,7 @@ using TMPro;
 public class ApprenticeCard : MonoBehaviour
 {
     public Apprentice thisApprentice;
+    public Animator cardAnimator;
     void Start()
     {
         thisApprentice = GameManager.GM.AG.GenerateApprentice();
@@ -39,6 +40,11 @@ public class ApprenticeCard : MonoBehaviour
     }
 
     public void RecruitApprentice(){
-        GameManager.GM.currentApprentice = thisApprentice;
+        GameManager.GM.ApprenticeChosen(thisApprentice);
+        cardAnimator.SetBool("Chosen", true);
+        gameObject.tag = "chosen";
+        foreach(GameObject card in GameObject.FindGameObjectsWithTag("candidate")){
+            card.GetComponent<ApprenticeCard>().cardAnimator.SetBool("Remove", true);
+        }
     }
 }
