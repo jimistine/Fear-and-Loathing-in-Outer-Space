@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager GM;
+    public Apprentice currentApprentice;
+    public ApprenticeGenerator AG;
+
+    void Awake(){
+        GM = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +24,7 @@ public class GameManager : MonoBehaviour
     }
     /*
     TO DO
-    [] Create Apprentice class
+    [x] Create Apprentice class
         Info
             Name
             Age
@@ -27,13 +34,13 @@ public class GameManager : MonoBehaviour
             Skill (?)
             Attributs<string> -> can use this to throw in adjectives that get read in to affect certain rolls
 
-    [] Procudurally generate apprentice candidates
-        [] Find way to make totally procedural names or pick first and last names from big bucketts
-        [] Age between 0 and 18, the older, the more you know about them, but the less loyal they start off being
+    [x] Procudurally generate apprentice candidates
+        [x] Find way to make totally procedural names or pick first and last names from big bucketts
+        [x] The older, the more you know about them and the more skilled they tend to be, but they start off less loyal
             - 0-5   -> Name, age, some attributes if based on heritage/location
             - 6-12  -> Name, age, all attributes, power
             - 13-18 -> Name, age, all attributes, power, confidence, skill
-        [] How to actually assign stats?
+        [x] How to actually assign stats?
             Each out of 100
             36 starting points assigned randomly to
                 - Power
@@ -41,6 +48,15 @@ public class GameManager : MonoBehaviour
                 - Confidence
             Loyalty is a direct function of age to start off
                 - 100 - (age*5) = starting loyalty
-        [] Populate their info into card prefabs
+        [x] Populate their info into card prefabs
+    
+    [x] Select an apprentice
+    [] Get shown a variety of missions to send them on
+    [] Send them on a mission
+    [] Get results
+        - What happened?
+        - Was it a success or failure?
+        - Update Apprentice stats/attributes
+    [] Get more missions
     */
 }
