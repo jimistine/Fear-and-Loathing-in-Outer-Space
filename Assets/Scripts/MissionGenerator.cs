@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class MissionGenerator : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public List<Mission> missions;
+    ApprenticeManager AM;
+
     void Start()
     {
-        
+        AM = ApprenticeManager.AM;
     }
 
     // Update is called once per frame
@@ -16,10 +19,29 @@ public class MissionGenerator : MonoBehaviour
         
     }
 
-    public Mission GenerateMissions(){
+    public Mission GenerateMission(){
         Mission newMission = new Mission();
-        newMission.missionName = GenerateMissionName();
+        int totalMissions = missions.Count;
+        newMission = missions[Random.Range(0, totalMissions)];
 
+        if(AM.apprentice.age < newMission.minAge || AM.apprentice.age > newMission.maxAge){
+            while(AM.apprentice.age < newMission.minAge || AM.apprentice.age > newMission.maxAge){
+                newMission = missions[Random.Range(0, totalMissions)];
+            }
+        }
+        // if(newApprentice.attribtues != null){
+        //         if(newApprentice.attribtues.Contains(attributeToAdd)){
+        //             while(newApprentice.attribtues.Contains(attributeToAdd)){
+        //                 attributeToAdd = possibleAttributes[Random.Range(0, possibleAttributes.Count)];
+        //             }
+        //         }
+        //         newApprentice.attribtues.Add(attributeToAdd);
+        //     }
+        if(AM.apprentice.age <= 5){
+
+        }
+
+        newMission.missionName = GenerateMissionName();
 
         return newMission;
     }
@@ -35,14 +57,76 @@ public class MissionGenerator : MonoBehaviour
 /*
     Mission Ideas
 
-    - Put down an enclave of other mages
-    - Help the middle faction deal with a growing band of pirates
-    - Attempt a coup on a small planet run by bandits/weakish power
-    - Negotiate a trade deal
+    - 
+    - Find, steal a thing
+        - Creature
+        - Person
+        - Object
+        - Place
 
-    - Should there be a generic set of options that are gaurenteed?
-        - ie combat training, meditation,general education
+    - Always available
+        - Sparring
+        - Meditation
+        - Education
 
+
+    Example Mission
+
+    Taming the Crew
+    Orbit of Yardaso Prime
+    The Ruler of Yardaso Prime has contacted you. He is in need of discrete justice and understands 
+    you have a way with such things. The crew of a defensive battle station orbiting the planet has 
+    gone rogue, and are threatening to decimate the capital city and its environs if they are not paid
+    handsomely. Send your apprentice, and they will take care of the matter.
+    
+
+    All Ages
+        Place in a room with a wild animal.
+        - Skill >= 5
+            - Success
+                - They bond with it and will cherish it as a dear friend
+                - +3 confidence
+            - Failure
+                - To maims them and they resent wild creatures forever more
+                - -2 confidence, -3 loyalty
+        Meditate
+        - Confidence > 20
+        - Skill > 10
+            - Success
+                - They see new edges of reality and open their eyes with a sense of cool understanding.
+                - Skill +4, power +2
+            - Failure
+                - Their mind swirls with confused thoughts of pain and desire. Much time passes, and they open their eyes
+                  with muscles tense and covered in a clammy sweat.
+                - Confidence -2
+
+    0-5 cycles old
+        Leave them in a random part of the castle, see if they can make it back to their room before time runs out
+            - Success
+        Run The Gauntlet for Childeren
+        Challenge them to a game of Treats and Talismans
+        Bend light
+    6-12
+        Play catch with no hands
+            - you bend light to do stuff
+        Run The Gauntlet for Growing Disciples 
+        Fly them out into the wilderness and leave them with what the had on them
+        Steal a trinket from this market place
+    13-18
+        Bring in a renown fighter for them to contend with
+        Fly them to the moon and leave them with a broken shuttle
+        Run the Gauntlet
+        Debate this smart guy on some topic
+        Hunt down a scary creature -> adult version of the one they can play with as a child
+        Kill this guy
+        Pretend there's an assault on the Castle by some droids and see what they do
+    18+
+        Assassinate a senator
+        Kidnap someone
+        Put down an enclave of other mages
+        Help the middle faction deal with a growing band of pirates
+        Attempt a coup on a small planet run by bandits/weakish power
+        Negotiate a trade deal
 
 */
 

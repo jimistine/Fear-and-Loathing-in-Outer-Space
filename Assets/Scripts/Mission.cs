@@ -8,4 +8,6 @@ public class Mission{
     public string location;
     public string description;
     public string successRate;
+    public float minAge;
+    public float maxAge;
 }

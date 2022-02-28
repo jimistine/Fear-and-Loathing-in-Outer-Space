@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     void Awake(){
         GM = this;
+        //AM = ApprenticeManager.AM;
     }
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
     public void ApprenticeChosen(Apprentice newApprentice){
         //currentApprentice = newApprentice;
         AM.apprentice = newApprentice;
-        MG.GenerateMissions();
+        //MG.GenerateMission();
         
     }
     /*
