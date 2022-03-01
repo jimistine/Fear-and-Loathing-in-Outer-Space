@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
+using System;
 
-public class MissionGenerator : MonoBehaviour
+public class MissionManager : MonoBehaviour
 {
 
+    public GameObject missionCard;
+    public GameObject missionHolder;
+    public int missionsToShow;
     public List<Mission> missions;
     ApprenticeManager AM;
+    
 
     void Start()
     {
         AM = ApprenticeManager.AM;
+
     }
 
     // Update is called once per frame
@@ -19,24 +26,82 @@ public class MissionGenerator : MonoBehaviour
         
     }
 
-    public Mission GenerateMission(){
-        Mission newMission = new Mission();
-        int totalMissions = missions.Count;
-        newMission = missions[Random.Range(0, totalMissions)];
+    // GM calls this whenever we need to show a new set of missions
+    public void ShowMissions(){
+        for(int i = 0; i < missionsToShow; i++){
+            GameObject newMissionCard = Instantiate(missionCard);
+            newMissionCard.transform.SetParent(missionHolder.transform);
+        }
+    }
 
+    // MissionCard calls this to figure out what to show
+    public Mission GenerateMission(){
+        Mission newMission;
+        int totalMissions = missions.Count;
+
+        // Pick a random mission from all missions
+        newMission = missions[UnityEngine.Random.Range(0, totalMissions)];
+
+        // If they're too old or too young, keep picking missions until they're not
         if(AM.apprentice.age < newMission.minAge || AM.apprentice.age > newMission.maxAge){
             while(AM.apprentice.age < newMission.minAge || AM.apprentice.age > newMission.maxAge){
-                newMission = missions[Random.Range(0, totalMissions)];
+                newMission = missions[UnityEngine.Random.Range(0, totalMissions)];
             }
         }
-        
-        if(AM.apprentice.age <= 5){
-
-        }
-
-        newMission.missionName = GenerateMissionName();
-
         return newMission;
+    }
+
+    float chanceToPass;
+    public bool ResolveMission(Mission mission){
+        bool succeedMission;
+        foreach (string qualifierWithStat in mission.passReqs){
+            string quailifier = Regex.Match(qualifierWithStat, @"^.*?(?= - )").Value;
+            string reqStatStr = Regex.Match(qualifierWithStat, @"[^ - ]*$").Value;
+            if(quailifier == "Attribute"){
+                if(AM.apprentice.attribtues.Contains(reqStatStr)){
+                    // this check passes
+                    continue;
+                }
+                else{
+                    // this check fails, mission is failed
+                    succeedMission = false;
+                    return succeedMission;
+                }
+            }
+            else{
+                float reqStat = Int32.Parse(reqStatStr);
+                if(quailifier == "Loyalty"){
+                    chanceToPass = AM.apprentice.loyalty/reqStat;
+                }
+                if(quailifier == "Power"){
+                    chanceToPass = AM.apprentice.power/reqStat;
+                }
+                if(quailifier == "Skill"){
+                    chanceToPass = AM.apprentice.skill/reqStat;
+                }
+                if(quailifier == "Confidence"){
+                    chanceToPass = AM.apprentice.confidence/reqStat;
+                }
+
+                if(chanceToPass*100 >= UnityEngine.Random.Range(0,100)){
+                    // this check passes
+                    continue;
+                }
+                else{
+                    // this check fails
+                    succeedMission = false;
+                    return succeedMission;
+                }
+            }
+        } 
+        // If it gets through everything without failing, its a success!
+        succeedMission = true;
+
+        // check to see if it has any missions in it's list, if so, grab the info from that and paste it into this one
+        if(mission.followingMission != null){
+            mission = mission.followingMission[0];
+        }
+        return succeedMission;
     }
 
     public string GenerateMissionName(){
@@ -48,6 +113,9 @@ public class MissionGenerator : MonoBehaviour
 
 
 /*
+
+
+
     TO DO
 
     [] Fill three mission cards
@@ -76,6 +144,7 @@ public class MissionGenerator : MonoBehaviour
     Mission Ideas
         - Pilgrimige
         - Collect ingredients for potion
+        - Harvest something nasty
         - Summoning ritual
         - Learn what potions do to you the hard way
         - Pretend to die

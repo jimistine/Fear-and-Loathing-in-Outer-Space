@@ -7,7 +7,9 @@ public class Mission{
     public string missionName;
     public string location;
     public string description;
-    public string successRate;
+    public List<string> passReqs;
     public float minAge;
     public float maxAge;
+    public int missionSequenceIndex;
+    public List<Mission> followingMission;
 }

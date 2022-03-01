@@ -6,13 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
     public ApprenticeManager AM;
-    //public Apprentice currentApprentice;
     public ApprenticeGenerator AG;
-    public MissionGenerator MG;
+    public MissionManager MM;
 
     void Awake(){
         GM = this;
-        //AM = ApprenticeManager.AM;
     }
     // Start is called before the first frame update
     void Start()
@@ -26,12 +24,14 @@ public class GameManager : MonoBehaviour
         
     }
     public void ApprenticeChosen(Apprentice newApprentice){
-        //currentApprentice = newApprentice;
         AM.apprentice = newApprentice;
-        //MG.GenerateMission();
-        
+        MM.ShowMissions();  
     }
     /*
+
+    
+
+
     TO DO
     [x] Create Apprentice class
         Info

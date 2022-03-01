@@ -97,10 +97,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 0, b: 0, a: 0}
+    m_NormalColor: {r: 0.0222499, g: 0.04020179, b: 0.14150941, a: 0}
     m_HighlightedColor: {r: 0, g: 0.007826679, b: 0.1509434, a: 0.36862746}
     m_PressedColor: {r: 0, g: 0.012894844, b: 0.1882353, a: 0.62352943}
-    m_SelectedColor: {r: 0.3773585, g: 0, b: 0, a: 0}
+    m_SelectedColor: {r: 0, g: 0.02476415, b: 0.1981132, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -235,6 +235,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2588f664ac6f3a84eb35348979d25bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisMission:
+    missionName: 
+    location: 
+    description: 
+    passReqs: []
+    minAge: 0
+    maxAge: 0
+    missionSequenceIndex: 0
+    followingMission: []
 --- !u!1 &2937694796200324006
 GameObject:
   m_ObjectHideFlags: 0
