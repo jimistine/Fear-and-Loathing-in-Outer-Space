@@ -29,14 +29,7 @@ public class MissionGenerator : MonoBehaviour
                 newMission = missions[Random.Range(0, totalMissions)];
             }
         }
-        // if(newApprentice.attribtues != null){
-        //         if(newApprentice.attribtues.Contains(attributeToAdd)){
-        //             while(newApprentice.attribtues.Contains(attributeToAdd)){
-        //                 attributeToAdd = possibleAttributes[Random.Range(0, possibleAttributes.Count)];
-        //             }
-        //         }
-        //         newApprentice.attribtues.Add(attributeToAdd);
-        //     }
+        
         if(AM.apprentice.age <= 5){
 
         }
@@ -55,20 +48,41 @@ public class MissionGenerator : MonoBehaviour
 
 
 /*
-    Mission Ideas
+    TO DO
 
-    - 
-    - Find, steal a thing
-        - Creature
-        - Person
-        - Object
-        - Place
+    [] Fill three mission cards
+        [x] Create mission class
+        [x] Create mission card prefab
+        [] Pick three missions to show (no random generation yet)
+            [] Each mission is only available to certain age ranges
+            [] Some missions require having completed others to be shown
+    [] Player can click one
+    [] The other's go away
+    [] There's a beat, and then it tells you if it was a success or failure
+    [] Update stats (maybe tell the player?)
+    [] Show three new missions
+
+    How do we calculate success?
+
+    Skill 20 check
+        - 20 -> 100%
+        - 10 -> 50% 
 
     - Always available
         - Sparring
         - Meditation
         - Education
 
+    Mission Ideas
+        - Pilgrimige
+        - Collect ingredients for potion
+        - Summoning ritual
+        - Learn what potions do to you the hard way
+        - Pretend to die
+        - Torture training  
+        - Mission chains
+            - If they succeed in taming the wild animal -> later, kill it
+            - If meditation succeeds -> get new snippets of their vision. You get the sense they're not telling you everything
 
     Example Mission
 
@@ -79,6 +93,7 @@ public class MissionGenerator : MonoBehaviour
     gone rogue, and are threatening to decimate the capital city and its environs if they are not paid
     handsomely. Send your apprentice, and they will take care of the matter.
     
+    Loyalty | Power | Skill | Confidence | Age
 
     All Ages
         Place in a room with a wild animal.
@@ -93,7 +108,8 @@ public class MissionGenerator : MonoBehaviour
         - Confidence > 20
         - Skill > 10
             - Success
-                - They see new edges of reality and open their eyes with a sense of cool understanding.
+                - They see new edges of reality and open their eyes with a sense of cool understanding. They tell you they 
+                  saw a tower on the violet, desolate surface of a moon. A planet hung behind it.
                 - Skill +4, power +2
             - Failure
                 - Their mind swirls with confused thoughts of pain and desire. Much time passes, and they open their eyes
@@ -102,7 +118,10 @@ public class MissionGenerator : MonoBehaviour
 
     0-5 cycles old
         Leave them in a random part of the castle, see if they can make it back to their room before time runs out
+        - Loyalty > 80
+        - Skill > 15
             - Success
+
         Run The Gauntlet for Childeren
         Challenge them to a game of Treats and Talismans
         Bend light
@@ -126,7 +145,7 @@ public class MissionGenerator : MonoBehaviour
         Put down an enclave of other mages
         Help the middle faction deal with a growing band of pirates
         Attempt a coup on a small planet run by bandits/weakish power
-        Negotiate a trade deal
+        Negotiate a trade deal with a crime lord
 
 */
 
