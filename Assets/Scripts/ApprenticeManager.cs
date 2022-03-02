@@ -21,4 +21,7 @@ public class ApprenticeManager : MonoBehaviour
     {
         
     }
+    public void updateStatsMission(bool missionSuccess, Mission mission){
+
+    }
 }

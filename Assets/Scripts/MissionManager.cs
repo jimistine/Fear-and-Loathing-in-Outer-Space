@@ -53,6 +53,7 @@ public class MissionManager : MonoBehaviour
 
     float chanceToPass;
     public bool ResolveMission(Mission mission){
+        Debug.Log("Resolving: " + mission.missionName);
         bool succeedMission;
         foreach (string qualifierWithStat in mission.passReqs){
             string quailifier = Regex.Match(qualifierWithStat, @"^.*?(?= - )").Value;
@@ -65,6 +66,7 @@ public class MissionManager : MonoBehaviour
                 else{
                     // this check fails, mission is failed
                     succeedMission = false;
+                    Debug.Log("Mission failed.");
                     return succeedMission;
                 }
             }
@@ -90,6 +92,7 @@ public class MissionManager : MonoBehaviour
                 else{
                     // this check fails
                     succeedMission = false;
+                    Debug.Log("Mission failed.");
                     return succeedMission;
                 }
             }
@@ -97,10 +100,14 @@ public class MissionManager : MonoBehaviour
         // If it gets through everything without failing, its a success!
         succeedMission = true;
 
-        // check to see if it has any missions in it's list, if so, grab the info from that and paste it into this one
-        if(mission.followingMission != null){
-            mission = mission.followingMission[0];
+        // check to see if it has a mission in its followup list, if so, add it to the list
+        if(mission.followingMission.Count != 0){
+            missions.Add(mission.followingMission[0]);
         }
+        // regaurdless, remove any completed missions
+        int missionToRemoveIndex = missions.IndexOf(mission);
+        missions.RemoveAt(missionToRemoveIndex);
+        Debug.Log("Mission success.");
         return succeedMission;
     }
 

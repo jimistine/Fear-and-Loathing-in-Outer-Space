@@ -1093,6 +1093,21 @@ MonoBehaviour:
   missionHolder: {fileID: 1509136927}
   missionsToShow: 1
   missions:
+  - missionName: test attributes
+    location: sdfg
+    description: sdfggfdgsdfgdfg
+    passReqs:
+    - Attribute - Curious
+    minAge: 6
+    maxAge: 12
+    successText: You did it!
+    failureText: YOU FAILED ME
+    succeed:
+    - Confidence +3
+    - Loyalty +1
+    fail:
+    - Confidence -3
+    followingMission: []
   - missionName: test older
     location: sdfg
     description: sdfggfdgsdfgdfg
@@ -1100,9 +1115,14 @@ MonoBehaviour:
     - Loyalty - 10
     minAge: 5
     maxAge: 18
-    missionSequenceIndex: 0
+    successText: successss
+    failureText: YOU FAILED ME!!
+    succeed:
+    - Power +2
+    fail:
+    - Skill -9
     followingMission:
-    - missionName: Test p2
+    - missionName: Test older p2
       location: adsf
       description: asdf
       passReqs:
@@ -1110,7 +1130,10 @@ MonoBehaviour:
       - Confidence - 4
       minAge: 0
       maxAge: 10
-      missionSequenceIndex: 1
+      successText: win
+      failureText: lose
+      succeed: []
+      fail: []
       followingMission:
       - missionName: Test pt3
         location: adsf
@@ -1119,7 +1142,10 @@ MonoBehaviour:
         - Attribute - Spiritual
         minAge: 5
         maxAge: 15
-        missionSequenceIndex: 2
+        successText: winner
+        failureText: loooooser
+        succeed: []
+        fail: []
         followingMission: []
   - missionName: test younger folks
     location: sdfg
@@ -1128,7 +1154,12 @@ MonoBehaviour:
     - Loyalty - 10
     minAge: 0
     maxAge: 5
-    missionSequenceIndex: 0
+    successText: You made it.
+    failureText: YOU FAILED ME
+    succeed:
+    - Skill +4
+    fail:
+    - Power -5
     followingMission: []
 --- !u!224 &1038179244 stripped
 RectTransform:

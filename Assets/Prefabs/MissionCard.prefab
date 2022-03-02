@@ -120,9 +120,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ApprenticeCard, Assembly-CSharp
-        m_MethodName: RecruitApprentice
+      - m_Target: {fileID: 5849523439641522895}
+        m_TargetAssemblyTypeName: MissionCard, Assembly-CSharp
+        m_MethodName: SendToResolve
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -242,6 +242,8 @@ MonoBehaviour:
     passReqs: []
     minAge: 0
     maxAge: 0
+    successText: 
+    failureText: 
     missionSequenceIndex: 0
     followingMission: []
 --- !u!1 &2937694796200324006
@@ -729,7 +731,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3934371880539957370
 RectTransform:
   m_ObjectHideFlags: 0
