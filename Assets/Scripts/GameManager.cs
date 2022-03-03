@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager GM;
     public ApprenticeManager AM;
     public ApprenticeGenerator AG;
+    public ApprenticeCard ApprenticeCard;
+    public int timePassed;
     public MissionManager MM;
 
     void Awake(){
@@ -27,9 +29,16 @@ public class GameManager : MonoBehaviour
         AM.apprentice = newApprentice;
         MM.ShowMissions();  
     }
+    public void PassTime(){
+        timePassed ++;
+        if(timePassed % 3 == 0){
+            AM.apprentice.age += 1;
+        }
+    }
     /*
 
-    
+    Left off: Mission manager needs to check to see if there are any viable missions before trying to show any
+        Also, baby age 0 did older folks mission...
 
 
     TO DO
@@ -60,8 +69,8 @@ public class GameManager : MonoBehaviour
         [x] Populate their info into card prefabs
     
     [x] Select an apprentice
-    [] Get shown a variety of missions to send them on
-    [] Send them on a mission
+    [x] Get shown a variety of missions to send them on
+    [x] Send them on a mission
     [] Get results
         - What happened?
         - Was it a success or failure?

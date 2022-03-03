@@ -7,11 +7,13 @@ using TMPro;
 public class MissionCard : MonoBehaviour
 {
     public Mission thisMission;
+    public GameObject okButton;
+    Transform headerGroup;
 
     void Awake(){
         // grab the mission
         thisMission = GameManager.GM.MM.GenerateMission();
-        Transform headerGroup = gameObject.transform.Find("HeaderGroup");
+        headerGroup = gameObject.transform.Find("HeaderGroup");
         headerGroup.Find("Mission Name").GetComponent<TextMeshProUGUI>().text = thisMission.missionName;
         // Location
         headerGroup.Find("Location").GetComponent<TextMeshProUGUI>().text = thisMission.location;
@@ -22,20 +24,24 @@ public class MissionCard : MonoBehaviour
 
     }
     public void SendToResolve(){
+        // Pass the time so we age up the apprentice before showing results
+        GameManager.GM.PassTime();
         // Figure out if you succeeded and update the card accordingly
         bool missionSuccess = GameManager.GM.MM.ResolveMission(thisMission);
         if(missionSuccess){
-            Transform headerGroup = gameObject.transform.Find("HeaderGroup");
+            thisMission.successText += "\n" + thisMission.succeed[0].nameOfStat + " +" + thisMission.succeed[0].value;
             headerGroup.Find("Description").GetComponent<TextMeshProUGUI>().text = thisMission.successText;
         }
         else{
-            Transform headerGroup = gameObject.transform.Find("HeaderGroup");
             headerGroup.Find("Description").GetComponent<TextMeshProUGUI>().text = thisMission.failureText;
         }
-        // Update apprentice stats -> this on mission manager?
-        // Turn on button to procede to the next set of missions
+        // Turn on button to proceede to the next set of missions
+        okButton.SetActive(true);
     }
 
+    public void Proceed(){
+        GameManager.GM.MM.ShowMissions();
+    }
     void Start(){
     }
 

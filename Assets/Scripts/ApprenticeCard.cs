@@ -11,6 +11,10 @@ public class ApprenticeCard : MonoBehaviour
     void Start()
     {
         thisApprentice = GameManager.GM.AG.GenerateApprentice();
+        UpdateApprenticeCard();
+    }
+
+    public void UpdateApprenticeCard(){
         GameObject headerGroup = gameObject.transform.Find("HeaderGroup").gameObject;
         GameObject statGroup = gameObject.transform.Find("StatGroup").gameObject;
         headerGroup.transform.Find("Candidate Name").gameObject.GetComponent<TextMeshProUGUI>().text = thisApprentice.firstName + " " + thisApprentice.lastName;
@@ -32,15 +36,14 @@ public class ApprenticeCard : MonoBehaviour
         }
         else{
             headerGroup.transform.Find("Attributes").gameObject.GetComponent<TextMeshProUGUI>().text = string.Join(", ", thisApprentice.attribtues);
-        }
-        
-        
+        }  
         statGroup.transform.Find("Skill").gameObject.GetComponent<TextMeshProUGUI>().text = "<b>" + thisApprentice.skill.ToString() + "</b><size=20>" + "/100";
         statGroup.transform.Find("Confidence").gameObject.GetComponent<TextMeshProUGUI>().text = "<b>" + thisApprentice.confidence.ToString() + "</b><size=20>" + "/100";
     }
 
     public void RecruitApprentice(){
         GameManager.GM.ApprenticeChosen(thisApprentice);
+        GameManager.GM.ApprenticeCard = this;
         cardAnimator.SetBool("Chosen", true);
         gameObject.tag = "chosen";
         foreach(GameObject card in GameObject.FindGameObjectsWithTag("candidate")){

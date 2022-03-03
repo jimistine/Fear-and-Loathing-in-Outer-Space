@@ -1095,41 +1095,48 @@ MonoBehaviour:
   missions:
   - missionName: test attributes
     location: sdfg
+    minAge: 6
+    maxAge: 12
     description: sdfggfdgsdfgdfg
     passReqs:
     - Attribute - Curious
-    minAge: 6
-    maxAge: 12
     successText: You did it!
     failureText: YOU FAILED ME
     succeed:
-    - Confidence +3
-    - Loyalty +1
+    - nameOfStat: Power
+      value: 5
+    - nameOfStat: Choleric
+      value: 0
     fail:
-    - Confidence -3
+    - nameOfStat: Confidence
+      value: -10
+    - nameOfStat: Understanding
+      value: 0
     followingMission: []
   - missionName: test older
     location: sdfg
+    minAge: 5
+    maxAge: 18
     description: sdfggfdgsdfgdfg
     passReqs:
     - Loyalty - 10
-    minAge: 5
-    maxAge: 18
     successText: successss
     failureText: YOU FAILED ME!!
     succeed:
-    - Power +2
+    - nameOfStat: Loyalty
+      value: 10
     fail:
-    - Skill -9
+    - nameOfStat: Skill
+      value: -10
     followingMission:
     - missionName: Test older p2
       location: adsf
+      minAge: 0
+      maxAge: 10
       description: asdf
       passReqs:
       - Skill - 3
       - Confidence - 4
-      minAge: 0
-      maxAge: 10
       successText: win
       failureText: lose
       succeed: []
@@ -1137,11 +1144,11 @@ MonoBehaviour:
       followingMission:
       - missionName: Test pt3
         location: adsf
+        minAge: 5
+        maxAge: 15
         description: dafdfsaf
         passReqs:
         - Attribute - Spiritual
-        minAge: 5
-        maxAge: 15
         successText: winner
         failureText: loooooser
         succeed: []
@@ -1149,17 +1156,23 @@ MonoBehaviour:
         followingMission: []
   - missionName: test younger folks
     location: sdfg
+    minAge: 0
+    maxAge: 5
     description: sdfggfdgsdfgdfg
     passReqs:
     - Loyalty - 10
-    minAge: 0
-    maxAge: 5
     successText: You made it.
     failureText: YOU FAILED ME
     succeed:
-    - Skill +4
+    - nameOfStat: Loyalty
+      value: 5
+    - nameOfStat: Happy
+      value: 0
     fail:
-    - Power -5
+    - nameOfStat: Confidence
+      value: -15
+    - nameOfStat: Happy
+      value: 0
     followingMission: []
 --- !u!224 &1038179244 stripped
 RectTransform:

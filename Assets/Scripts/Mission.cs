@@ -6,17 +6,18 @@ using UnityEngine;
 public class Mission{
     public string missionName;
     public string location;
+    public float minAge;
+    public float maxAge;
     [TextArea(3, 10)]
     public string description;
     public List<string> passReqs;
-    public float minAge;
-    public float maxAge;
     [TextArea(3, 10)]
     public string successText;
     [TextArea(3, 10)]
     public string failureText;
     [Header("Stat Updates")]
-    public List<string> succeed;
-    public List<string> fail;
+    public List<StatCheckChange> succeed;
+    public List<StatCheckChange> fail;
+    [Space(5)]
     public List<Mission> followingMission;
 }

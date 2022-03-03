@@ -26,15 +26,21 @@ public class MissionManager : MonoBehaviour
         
     }
 
-    // GM calls this whenever we need to show a new set of missions
+// GM calls this whenever we need to show a new set of missions
     public void ShowMissions(){
+        if(missionHolder.transform.childCount != 0){
+            Debug.Log("Mission holder childeren count: " + missionHolder.transform.childCount);
+            foreach(Transform missionCard in missionHolder.transform){
+                Destroy(missionCard.gameObject);
+            }
+        }
         for(int i = 0; i < missionsToShow; i++){
             GameObject newMissionCard = Instantiate(missionCard);
             newMissionCard.transform.SetParent(missionHolder.transform);
         }
     }
 
-    // MissionCard calls this to figure out what to show
+// MissionCard calls this to figure out what to show
     public Mission GenerateMission(){
         Mission newMission;
         int totalMissions = missions.Count;
@@ -44,11 +50,19 @@ public class MissionManager : MonoBehaviour
 
         // If they're too old or too young, keep picking missions until they're not
         if(AM.apprentice.age < newMission.minAge || AM.apprentice.age > newMission.maxAge){
-            while(AM.apprentice.age < newMission.minAge || AM.apprentice.age > newMission.maxAge){
-                newMission = missions[UnityEngine.Random.Range(0, totalMissions)];
+            foreach(Mission mission in missions){
+                if(AM.apprentice.age >= newMission.minAge || AM.apprentice.age <= newMission.maxAge)
+                    newMission = missions[UnityEngine.Random.Range(0, totalMissions)];
+                    return newMission;
             }
+            // while(AM.apprentice.age < newMission.minAge || AM.apprentice.age > newMission.maxAge){
+            //     newMission = missions[UnityEngine.Random.Range(0, totalMissions)];
+            // }
         }
-        return newMission;
+        else{
+            Debug.Log("No missions available");
+        }
+            return null;
     }
 
     float chanceToPass;
@@ -67,6 +81,8 @@ public class MissionManager : MonoBehaviour
                     // this check fails, mission is failed
                     succeedMission = false;
                     Debug.Log("Mission failed.");
+                    // update player stats
+                    ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
                     return succeedMission;
                 }
             }
@@ -93,6 +109,8 @@ public class MissionManager : MonoBehaviour
                     // this check fails
                     succeedMission = false;
                     Debug.Log("Mission failed.");
+                    // update player stats
+                    ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
                     return succeedMission;
                 }
             }
@@ -104,9 +122,12 @@ public class MissionManager : MonoBehaviour
         if(mission.followingMission.Count != 0){
             missions.Add(mission.followingMission[0]);
         }
-        // regaurdless, remove any completed missions
+        // regardless, remove any successfully completed missions
         int missionToRemoveIndex = missions.IndexOf(mission);
         missions.RemoveAt(missionToRemoveIndex);
+        // update player stats
+        ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
+        
         Debug.Log("Mission success.");
         return succeedMission;
     }
@@ -125,15 +146,15 @@ public class MissionManager : MonoBehaviour
 
     TO DO
 
-    [] Fill three mission cards
+    [x] Fill three mission cards
         [x] Create mission class
         [x] Create mission card prefab
-        [] Pick three missions to show (no random generation yet)
-            [] Each mission is only available to certain age ranges
-            [] Some missions require having completed others to be shown
-    [] Player can click one
+        [x] Pick three missions to show (no random generation yet)
+            [x] Each mission is only available to certain age ranges
+            [x] Some missions require having completed others to be shown
+    [x] Player can click one
     [] The other's go away
-    [] There's a beat, and then it tells you if it was a success or failure
+    [x] There's a beat, and then it tells you if it was a success or failure
     [] Update stats (maybe tell the player?)
     [] Show three new missions
 
