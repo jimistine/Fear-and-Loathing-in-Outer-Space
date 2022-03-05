@@ -163,16 +163,12 @@ public class MissionManager : MonoBehaviour
             [x] Each mission is only available to certain age ranges
             [x] Some missions require having completed others to be shown
     [x] Player can click one
-    [] The other's go away
+    [x] The other's go away
     [x] There's a beat, and then it tells you if it was a success or failure
-    [] Update stats (maybe tell the player?)
-    [] Show three new missions
+    [x] Update stats (maybe tell the player?)
+    [x] Show new missions
 
-    How do we calculate success?
-
-    Skill 20 check
-        - 20 -> 100%
-        - 10 -> 50% 
+    [] Missions are failed if you *have* a specific attribute or have a stat that is *too* high
 
     - Always available
         - Sparring
@@ -191,16 +187,9 @@ public class MissionManager : MonoBehaviour
             - If they succeed in taming the wild animal -> later, kill it
             - If meditation succeeds -> get new snippets of their vision. You get the sense they're not telling you everything
 
-    Example Mission
 
-    Taming the Crew
-    Orbit of Yardaso Prime
-    The Ruler of Yardaso Prime has contacted you. He is in need of discrete justice and understands 
-    you have a way with such things. The crew of a defensive battle station orbiting the planet has 
-    gone rogue, and are threatening to decimate the capital city and its environs if they are not paid
-    handsomely. Send your apprentice, and they will take care of the matter.
     
-    Loyalty | Power | Skill | Confidence | Age
+    Loyalty | Power | Skill | Confidence | Age | Attributes
 
     All Ages
         Place in a room with a wild animal.

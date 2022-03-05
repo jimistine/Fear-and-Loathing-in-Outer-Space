@@ -51,12 +51,12 @@ public class ApprenticeGenerator : MonoBehaviour
         return startingLoyalty;
     }
     public float CalculateStartingPower(){
-        float startingPower = Random.Range(20,40);
+        float startingPower = Random.Range(10,25);
         newPower = startingPower;
         return startingPower;
     }
     public float CalculateStartingSkill(){
-        float startingSkill = Mathf.Round(newAge * Random.Range(1.25f, 2f));
+        float startingSkill = Mathf.Round(newAge * Random.Range(0.75f, 1.25f));
         newSkill = startingSkill;
         return startingSkill;
     }
@@ -86,7 +86,7 @@ public class ApprenticeGenerator : MonoBehaviour
     /*
     [x] Procudurally generate apprentice candidates
         [x] Find way to make totally procedural names or pick first and last names from big bucketts
-        [] Age between 0 and 18, the older, the more you know about them, but the less loyal they start off being
+        [x] Age between 0 and 18, the older, the more you know about them, but the less loyal they start off being
             - 0-5   -> Name, age, some attributes if based on heritage/location
             - 6-12  -> Name, age, all attributes, power
             - 13-18 -> Name, age, all attributes, power, confidence, skill

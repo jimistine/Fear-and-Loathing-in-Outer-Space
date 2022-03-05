@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     }
     public void ApprenticeChosen(Apprentice newApprentice){
         AM.apprentice = newApprentice;
-        statusText.text = "NOW MAKE THEM BETTER";
+        statusText.text = "WHAT WILL YOU ASK OF THEM?";
         Proceed();  
     }
     public void PassTime(){
@@ -108,10 +108,11 @@ public class GameManager : MonoBehaviour
     [x] Select an apprentice
     [x] Get shown a variety of missions to send them on
     [x] Send them on a mission
-    [] Get results
+    [x] Get results
         - What happened?
         - Was it a success or failure?
         - Update Apprentice stats/attributes
-    [] Get more missions
+    [x] Get more missions
+    [ ] populate missions
     */
 }
