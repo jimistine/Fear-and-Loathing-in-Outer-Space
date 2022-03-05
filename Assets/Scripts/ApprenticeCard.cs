@@ -42,8 +42,8 @@ public class ApprenticeCard : MonoBehaviour
     }
 
     public void RecruitApprentice(){
-        GameManager.GM.ApprenticeChosen(thisApprentice);
         GameManager.GM.ApprenticeCard = this;
+        GameManager.GM.ApprenticeChosen(thisApprentice);
         cardAnimator.SetBool("Chosen", true);
         gameObject.tag = "chosen";
         foreach(GameObject card in GameObject.FindGameObjectsWithTag("candidate")){

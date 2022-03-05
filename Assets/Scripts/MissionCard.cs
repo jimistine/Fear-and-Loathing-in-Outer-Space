@@ -24,8 +24,7 @@ public class MissionCard : MonoBehaviour
 
     }
     public void SendToResolve(){
-        // Pass the time so we age up the apprentice before showing results
-        GameManager.GM.PassTime();
+        
         // Figure out if you succeeded and update the card accordingly
         bool missionSuccess = GameManager.GM.MM.ResolveMission(thisMission);
         if(missionSuccess){
@@ -36,12 +35,14 @@ public class MissionCard : MonoBehaviour
             headerGroup.Find("Description").GetComponent<TextMeshProUGUI>().text = thisMission.failureText;
         }
         // Turn on button to proceede to the next set of missions
-        okButton.SetActive(true);
+        GameManager.GM.onMissionResolved.Invoke();
+        //GameManager.GM.proceedButton.SetActive(true);
+        //okButton.SetActive(true);
     }
 
-    public void Proceed(){
-        GameManager.GM.MM.ShowMissions();
-    }
+    // public void Proceed(){
+    //     GameManager.GM.MM.ShowMissions();
+    // }
     void Start(){
     }
 

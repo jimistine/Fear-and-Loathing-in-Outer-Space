@@ -10,6 +10,7 @@ public class MissionManager : MonoBehaviour
     public GameObject missionCard;
     public GameObject missionHolder;
     public int missionsToShow;
+    public List<Mission> onScreenMissions;
     public List<Mission> missions;
     ApprenticeManager AM;
     
@@ -39,30 +40,38 @@ public class MissionManager : MonoBehaviour
             newMissionCard.transform.SetParent(missionHolder.transform);
         }
     }
+    
+
+    public bool CheckMissions(){
+        bool missionsAvailable;
+        foreach(Mission mission in missions){
+            if(AM.apprentice.age >= mission.minAge && AM.apprentice.age <= mission.maxAge){
+                missionsAvailable = true;
+                return missionsAvailable;
+            }
+        }
+        missionsAvailable = false;
+        return missionsAvailable;
+
+    }
 
 // MissionCard calls this to figure out what to show
     public Mission GenerateMission(){
-        Mission newMission;
-        int totalMissions = missions.Count;
-
-        // Pick a random mission from all missions
-        newMission = missions[UnityEngine.Random.Range(0, totalMissions)];
-
-        // If they're too old or too young, keep picking missions until they're not
-        if(AM.apprentice.age < newMission.minAge || AM.apprentice.age > newMission.maxAge){
-            foreach(Mission mission in missions){
-                if(AM.apprentice.age >= newMission.minAge || AM.apprentice.age <= newMission.maxAge)
-                    newMission = missions[UnityEngine.Random.Range(0, totalMissions)];
-                    return newMission;
+        // Go through all the missions, and grab the first one that we're old enough for
+        foreach(Mission mission in missions){
+            // Check if we're already showing a copy of this mission
+            if(onScreenMissions.Contains(mission)){
+                continue;
             }
-            // while(AM.apprentice.age < newMission.minAge || AM.apprentice.age > newMission.maxAge){
-            //     newMission = missions[UnityEngine.Random.Range(0, totalMissions)];
-            // }
+            else if(AM.apprentice.age >= mission.minAge && AM.apprentice.age <= mission.maxAge){
+                onScreenMissions.Add(mission);
+                return mission;
+            }
         }
-        else{
-            Debug.Log("No missions available");
-        }
-            return null;
+        // If there weren't any, we're out of new missions
+        Debug.Log("No missions available");
+        GameManager.GM.noMissionsAvailable.Invoke();
+        return null;
     }
 
     float chanceToPass;
@@ -122,9 +131,10 @@ public class MissionManager : MonoBehaviour
         if(mission.followingMission.Count != 0){
             missions.Add(mission.followingMission[0]);
         }
-        // regardless, remove any successfully completed missions
+        // regardless, remove any successfully completed missions and clear log of onscreen missions
         int missionToRemoveIndex = missions.IndexOf(mission);
         missions.RemoveAt(missionToRemoveIndex);
+        onScreenMissions.Clear();
         // update player stats
         ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
         

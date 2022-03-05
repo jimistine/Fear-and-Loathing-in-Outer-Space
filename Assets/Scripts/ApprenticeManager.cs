@@ -24,6 +24,8 @@ public class ApprenticeManager : MonoBehaviour
     {
         
     }
+
+
     public void UpdateStatsMission(bool missionSuccess, Mission mission){
         if(mission.succeed == null || mission.fail == null){
             Debug.Log("No updates to apprentice from mission");

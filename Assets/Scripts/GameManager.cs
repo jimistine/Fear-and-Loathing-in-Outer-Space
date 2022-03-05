@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,9 +12,16 @@ public class GameManager : MonoBehaviour
     public ApprenticeCard ApprenticeCard;
     public int timePassed;
     public MissionManager MM;
+    public GameObject proceedButton;
+    public TextMeshProUGUI statusText;
+    // Events don't do anything, but functions can listen to them so they run when that event is invoked
+    public UnityEvent onMissionResolved;
+    public UnityEvent noMissionsAvailable;
 
     void Awake(){
         GM = this;
+        onMissionResolved.AddListener(ToggleProceedButton);
+        noMissionsAvailable.AddListener(PassTime);
     }
     // Start is called before the first frame update
     void Start()
@@ -25,16 +34,44 @@ public class GameManager : MonoBehaviour
     {
         
     }
+    public void Proceed(){
+        PassTime();
+        ApprenticeCard.UpdateApprenticeCard();
+        if(MM.CheckMissions() == false){
+            Debug.Log("No missions to show");
+            statusText.text = "The galaxy sleeps easily for there is naught to do but pass the time away. Proceed.";
+        }
+        else{
+            Debug.Log("Showing missions");
+            proceedButton.SetActive(false);
+            MM.ShowMissions();
+        }
+    }
     public void ApprenticeChosen(Apprentice newApprentice){
         AM.apprentice = newApprentice;
-        MM.ShowMissions();  
+        statusText.text = "NOW MAKE THEM BETTER";
+        Proceed();  
     }
     public void PassTime(){
         timePassed ++;
         if(timePassed % 3 == 0){
             AM.apprentice.age += 1;
+            Birthday();
         }
     }
+    public void ToggleProceedButton(){
+        if(proceedButton.activeSelf){
+            proceedButton.SetActive(false);
+        }
+        else{
+            proceedButton.SetActive(true);
+        }
+    }
+
+    public void Birthday(){
+        statusText.text = "Happy birthday, my apprentice.";
+    }
+
     /*
 
     Left off: Mission manager needs to check to see if there are any viable missions before trying to show any
