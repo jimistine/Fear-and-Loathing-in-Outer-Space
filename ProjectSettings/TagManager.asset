@@ -7,6 +7,8 @@ TagManager:
   - candidate
   - chosen
   - sidebar
+  - missionCard
+  - chosenMission
   layers:
   - Default
   - TransparentFX

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     public void Proceed(){
         PassTime();
         ApprenticeCard.UpdateApprenticeCard();
-        if(MM.CheckMissions() == false){
+        if(MM.CheckMissions() == 0){
             Debug.Log("No missions to show");
             statusText.text = "The galaxy sleeps easily for there is naught to do but pass the time away. Proceed.";
         }

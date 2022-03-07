@@ -9,7 +9,8 @@ public class MissionManager : MonoBehaviour
 
     public GameObject missionCard;
     public GameObject missionHolder;
-    public int missionsToShow;
+    public int maxMissionsToShow;
+    int missionsToShow;
     public List<Mission> onScreenMissions;
     public List<Mission> missions;
     ApprenticeManager AM;
@@ -35,6 +36,12 @@ public class MissionManager : MonoBehaviour
                 Destroy(missionCard.gameObject);
             }
         }
+        if(maxMissionsToShow > CheckMissions()){
+            missionsToShow = CheckMissions();
+        }
+        else{
+            missionsToShow = maxMissionsToShow;
+        }
         for(int i = 0; i < missionsToShow; i++){
             GameObject newMissionCard = Instantiate(missionCard);
             newMissionCard.transform.SetParent(missionHolder.transform);
@@ -42,17 +49,15 @@ public class MissionManager : MonoBehaviour
     }
     
 
-    public bool CheckMissions(){
-        bool missionsAvailable;
+    public int CheckMissions(){
+        int missionsAvailable = 0;
         foreach(Mission mission in missions){
             if(AM.apprentice.age >= mission.minAge && AM.apprentice.age <= mission.maxAge){
-                missionsAvailable = true;
-                return missionsAvailable;
+                missionsAvailable ++;
+                //Debug.Log(mission.missionName + " available");
             }
         }
-        missionsAvailable = false;
         return missionsAvailable;
-
     }
 
 // MissionCard calls this to figure out what to show
@@ -69,7 +74,7 @@ public class MissionManager : MonoBehaviour
             }
         }
         // If there weren't any, we're out of new missions
-        Debug.Log("No missions available");
+        Debug.Log("No missions available ("+CheckMissions()+")");
         GameManager.GM.noMissionsAvailable.Invoke();
         return null;
     }
@@ -81,6 +86,7 @@ public class MissionManager : MonoBehaviour
         foreach (string qualifierWithStat in mission.passReqs){
             string quailifier = Regex.Match(qualifierWithStat, @"^.*?(?= - )").Value;
             string reqStatStr = Regex.Match(qualifierWithStat, @"[^ - ]*$").Value;
+            Debug.Log("Quailifier with stat: " + qualifierWithStat + "\nRequired Stat as string: " + reqStatStr);
             if(quailifier == "Attribute"){
                 if(AM.apprentice.attribtues.Contains(reqStatStr)){
                     // this check passes

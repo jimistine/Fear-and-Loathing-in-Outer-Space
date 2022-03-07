@@ -216,10 +216,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 691775453}
+  - {fileID: 580182519}
   - {fileID: 976830965}
   - {fileID: 1864981989}
   - {fileID: 2047350772}
-  - {fileID: 580182519}
   - {fileID: 1046024182}
   - {fileID: 793207580}
   m_Father: {fileID: 0}
@@ -289,7 +289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1250022035355972958, guid: 6046036a0adc1324f8ba1c53d1837cbc, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1250022035355972958, guid: 6046036a0adc1324f8ba1c53d1837cbc, type: 3}
       propertyPath: m_AnchorMax.x
@@ -707,7 +707,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 158529598}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -856,7 +856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionCard: {fileID: 201170525980698917, guid: 3b2953a40f356b14da59a546a21a1ed4, type: 3}
   missionHolder: {fileID: 1046024181}
-  missionsToShow: 2
+  maxMissionsToShow: 2
   onScreenMissions: []
   missions:
   - missionName: Catch with No Hands
@@ -893,10 +893,10 @@ MonoBehaviour:
       apprentice they are to remain in the room for 1 hour, at which point you will
       return and unlock the door.
     passReqs:
-    - 'Skill - 5 '
-    - Confidence -10
+    - Confidence - 10
+    - Skill - 5
     successText: When you return you find your apprentice fast asleep on the stomach
-      of the lion. When they wake up they tell you the've named it "Paul".
+      of the lion. When they wake up they tell you they've named it "Paul".
     failureText: When you return you find your apprentice and the lion in opposite
       corners of the room, staring at one another. Your apprentice has bled on the
       floor and you can see from their arms whence it came. Your apprentice immediately
@@ -970,6 +970,87 @@ MonoBehaviour:
       value: -3
     - nameOfStat: Loyalty
       value: -3
+    followingMission: []
+  - missionName: Bend the Light
+    location: The Castle
+    minAge: 0
+    maxAge: 5
+    description: Today's the day. Their first lesson in harnessing the power of light
+      and dark. While they are quite young, the earlier they begin their training
+      the better.
+    passReqs:
+    - Power - 20
+    successText: You guide them through the stances, utterances, and gestures needed
+      to summon light and bend it to your will. They are attentive, and display a
+      surprising amount of power for someone their age. A most promising apprentice
+      indeed.
+    failureText: You began at dawn and the sun has now set. Your apprentice has failed
+      to summon even a spark of light and is clearly becoming frustrated. Perhaps
+      they are not as powerful as you had hoped.
+    succeed:
+    - nameOfStat: Confidence
+      value: 5
+    - nameOfStat: Skill
+      value: 3
+    - nameOfStat: Poewer
+      value: 2
+    fail:
+    - nameOfStat: Confidence
+      value: -4
+    followingMission: []
+  - missionName: The Children's Gauntlet
+    location: The Castle
+    minAge: 0
+    maxAge: 5
+    description: In the castle basement is a series of obstacles, puzzles and traps
+      designed by the best Kugrew engineers in the galaxy. The Kugrew's diminutive
+      size makes them perfect for constructing a guantlet for young pupils.
+    passReqs:
+    - Skill - 7
+    - Power - 20
+    successText: You set your young apprentice down in front of the gauntlet and
+      give them a small push. Their eyes go wide as they approach the first obsctacle
+      but they quickly scramble over it and scurry in a blur through the rest of
+      the traps and puzzles.
+    failureText: You set your young apprentice in front of the gauntlet and give
+      them a small push. The first obstacle crashes down in front of them and they
+      turn around screaming to scurry behind you.
+    succeed:
+    - nameOfStat: Skill
+      value: 10
+    fail:
+    - nameOfStat: Confidence
+      value: -5
+    - nameOfStat: Loyalty
+      value: -3
+    followingMission: []
+  - missionName: Seek and Find
+    location: The Castle
+    minAge: 0
+    maxAge: 5
+    description: You sit your young apprentice down in a parapet far from the main
+      hall. You give them five minutes to make it back to the hall. If they make
+      it in time, they will recieve a special treat, if not, well...they'd rather
+      not find out now would they?
+    passReqs:
+    - Skill - 5
+    - Confidence -10
+    successText: You teleport yourself back to the main hall, and before you can
+      resume your place at the table to finish your morning meal of darkness you
+      hear the pitter-patter of feet from the far entrance. "Ah, very good, very
+      good indeed. Please join me at the table young apprentice, I've prepared your
+      favorite meal." You notice them supress a smile as they shuffle over and take
+      their seat.
+    failureText: You teleport back to the main hall and resume your morning meal.
+      It's not until the late afternoon that you see your apprentice again, covered
+      in dust and cobwebs. They look to be on the verge of tears. "Well, it seems
+      like you've discovered your punishment. Come now, and clean yourself up."
+    succeed:
+    - nameOfStat: Confidence
+      value: -5
+    fail:
+    - nameOfStat: Confidence
+      value: -5
     followingMission: []
 --- !u!1 &691775452
 GameObject:
@@ -1059,7 +1140,7 @@ MonoBehaviour:
   m_fontSizeBase: 50.2
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 32
+  m_fontSizeMin: 24
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -1171,8 +1252,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1299,10 +1380,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.32353163, g: 0, b: 1, a: 1}
     m_HighlightedColor: {r: 0.6981132, g: 0.0037634047, b: 0.0037634047, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.1792453, g: 0, b: 0, a: 1}
+    m_SelectedColor: {r: 0.32353163, g: 0, b: 1, a: 0.8627451}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1318,7 +1399,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 793207582}
+  m_TargetGraphic: {fileID: 732340355}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1341,7 +1422,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793207579}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1524,7 +1605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1250022035355972958, guid: 6046036a0adc1324f8ba1c53d1837cbc, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1250022035355972958, guid: 6046036a0adc1324f8ba1c53d1837cbc, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1797,7 +1878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1250022035355972958, guid: 6046036a0adc1324f8ba1c53d1837cbc, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1250022035355972958, guid: 6046036a0adc1324f8ba1c53d1837cbc, type: 3}
       propertyPath: m_AnchorMax.x

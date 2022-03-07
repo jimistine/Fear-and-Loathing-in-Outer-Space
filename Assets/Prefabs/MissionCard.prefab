@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7542707618234979755}
   m_Layer: 5
   m_Name: MissionCard
-  m_TagString: Untagged
+  m_TagString: missionCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,6 +117,7 @@ MonoBehaviour:
     fail: []
     followingMission: []
   okButton: {fileID: 0}
+  missionCardAnimator: {fileID: 7542707618234979755}
 --- !u!95 &7542707618234979755
 Animator:
   serializedVersion: 3
@@ -201,7 +202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Misison description
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 59ecb30401110ed469bb0ea814d28a84, type: 2}
   m_sharedMaterial: {fileID: -3584865838610847312, guid: 59ecb30401110ed469bb0ea814d28a84, type: 2}
@@ -335,7 +336,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: No missions available.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b69a8324e9e254342a9e2dc68f781c72, type: 2}
   m_sharedMaterial: {fileID: -373487583157023481, guid: b69a8324e9e254342a9e2dc68f781c72, type: 2}
@@ -362,10 +363,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
+  m_fontSize: 25.9
   m_fontSizeBase: 26
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -398,7 +399,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 10, y: 5, z: 10, w: 10}
+  m_margin: {x: 10, y: 5, z: 8.526123, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -679,7 +680,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Location
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7d9fe09b92862242be4c91f9350cae8, type: 2}
   m_sharedMaterial: {fileID: -5767679376031280777, guid: a7d9fe09b92862242be4c91f9350cae8, type: 2}
