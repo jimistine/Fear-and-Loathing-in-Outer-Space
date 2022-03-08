@@ -9,7 +9,8 @@ public class MissionCard : MonoBehaviour
     public Mission thisMission;
     public GameObject okButton;
     public Animator missionCardAnimator;
-    Transform headerGroup;
+    public Transform headerGroup;
+    public bool missionSuccess;
 
     void Awake(){
         // grab the mission
@@ -27,6 +28,9 @@ public class MissionCard : MonoBehaviour
                 thisMission.description = thisMission.description.Replace("your apprentice", ApprenticeManager.AM.apprentice.firstName);
                 thisMission.description = thisMission.description.Replace("Darth", ApprenticeManager.AM.apprentice.firstName);
                 headerGroup.Find("Description").GetComponent<TextMeshProUGUI>().text = thisMission.description;
+                // Change the other description texts while we're here
+                thisMission.successText = thisMission.successText.Replace("Darth", ApprenticeManager.AM.apprentice.firstName);
+                thisMission.failureText = thisMission.failureText.Replace("Darth", ApprenticeManager.AM.apprentice.firstName);
                 // Chance of success
                 //headerGroup.Find("Chance of success").GetComponent<TextMeshProUGUI>().text = thisMission.successRate;
             }
@@ -36,17 +40,17 @@ public class MissionCard : MonoBehaviour
     public void SendToResolve(){
         
         // Figure out if you succeeded and update the card accordingly
-        bool missionSuccess = GameManager.GM.MM.ResolveMission(thisMission);
+        missionSuccess = GameManager.GM.MM.ResolveMission(thisMission);
 
         missionCardAnimator.SetBool("MissionSelected", true);
 
+        // we update the desc text on the animator behavior
         if(missionSuccess){
-            thisMission.successText += "\n" + thisMission.succeed[0].nameOfStat + " +" + thisMission.succeed[0].value;
-            headerGroup.Find("Description").GetComponent<TextMeshProUGUI>().text = thisMission.successText;
+            thisMission.successText += "\n" + thisMission.succeed[0].nameOfStat + "<color=green> +" + thisMission.succeed[0].value + "</color>";
             missionCardAnimator.SetBool("MissionSucceed", true);
         }
         else{
-            headerGroup.Find("Description").GetComponent<TextMeshProUGUI>().text = thisMission.failureText;
+            thisMission.failureText += "\n" + thisMission.fail[0].nameOfStat + "<color=red> " + thisMission.fail[0].value + "</color>";
             missionCardAnimator.SetBool("MissionSucceed", false);
         }
         // Turn on button to proceede to the next set of missions

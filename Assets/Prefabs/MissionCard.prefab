@@ -118,6 +118,8 @@ MonoBehaviour:
     followingMission: []
   okButton: {fileID: 0}
   missionCardAnimator: {fileID: 7542707618234979755}
+  headerGroup: {fileID: 0}
+  missionSuccess: 0
 --- !u!95 &7542707618234979755
 Animator:
   serializedVersion: 3
@@ -202,7 +204,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: There are no missions that are available.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 59ecb30401110ed469bb0ea814d28a84, type: 2}
   m_sharedMaterial: {fileID: -3584865838610847312, guid: 59ecb30401110ed469bb0ea814d28a84, type: 2}
@@ -570,7 +572,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.14799368, g: 0.17947514, b: 0.3773585, a: 0}
     m_HighlightedColor: {r: 0, g: 0.029294956, b: 0.5566038, a: 0.6313726}
-    m_PressedColor: {r: 0, g: 0.012894844, b: 0.1882353, a: 0.62352943}
+    m_PressedColor: {r: 0.024296895, g: 0.05166985, b: 0.46226418, a: 0.62352943}
     m_SelectedColor: {r: 0, g: 0.02476415, b: 0.1981132, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
     m_ColorMultiplier: 1

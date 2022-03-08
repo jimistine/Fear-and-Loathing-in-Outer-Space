@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public MissionManager MM;
     public GameObject proceedButton;
     public TextMeshProUGUI statusText;
+    public List<string> birthdayWishes;
+    int count = 0;
     // Events don't do anything, but functions can listen to them so they run when that event is invoked
     public UnityEvent onMissionResolved;
     public UnityEvent noMissionsAvailable;
@@ -54,7 +56,7 @@ public class GameManager : MonoBehaviour
     }
     public void PassTime(){
         timePassed ++;
-        if(timePassed % 3 == 0){
+        if(timePassed % 2 == 0){
             AM.apprentice.age += 1;
             Birthday();
         }
@@ -69,7 +71,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void Birthday(){
-        statusText.text = "Happy birthday, my apprentice.";
+        ApprenticeCard.UpdateApprenticeCard();
+        //birthdayWishes.Count(); i++)
+        statusText.text = birthdayWishes[count];
+        count++;
+        if(count == birthdayWishes.Count){
+            count = 0;
+        }
     }
 
     /*
@@ -113,6 +121,10 @@ public class GameManager : MonoBehaviour
         - Was it a success or failure?
         - Update Apprentice stats/attributes
     [x] Get more missions
-    [ ] populate missions
+    [] populate missions
+    [] Missions are read in from CSV
+    [] Mission chance of success is shown
+    [] Missions show when more than one stat is updated
+    [] More room to read missions
     */
 }

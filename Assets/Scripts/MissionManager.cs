@@ -30,6 +30,7 @@ public class MissionManager : MonoBehaviour
 
 // GM calls this whenever we need to show a new set of missions
     public void ShowMissions(){
+        onScreenMissions.Clear();
         if(missionHolder.transform.childCount != 0){
             Debug.Log("Mission holder childeren count: " + missionHolder.transform.childCount);
             foreach(Transform missionCard in missionHolder.transform){
@@ -83,19 +84,21 @@ public class MissionManager : MonoBehaviour
     public bool ResolveMission(Mission mission){
         Debug.Log("Resolving: " + mission.missionName);
         bool succeedMission;
+        int missionIndex = missions.IndexOf(mission);
         foreach (string qualifierWithStat in mission.passReqs){
             string quailifier = Regex.Match(qualifierWithStat, @"^.*?(?= - )").Value;
             string reqStatStr = Regex.Match(qualifierWithStat, @"[^ - ]*$").Value;
             Debug.Log("Quailifier with stat: " + qualifierWithStat + "\nRequired Stat as string: " + reqStatStr);
             if(quailifier == "Attribute"){
                 if(AM.apprentice.attribtues.Contains(reqStatStr)){
-                    // this check passes
+            // this check passes
                     continue;
                 }
                 else{
-                    // this check fails, mission is failed
-                    succeedMission = false;
+            // this check fails, mission is failed
                     Debug.Log("Mission failed.");
+                    succeedMission = false;
+                    missions.RemoveAt(missionIndex);
                     // update player stats
                     ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
                     return succeedMission;
@@ -117,13 +120,14 @@ public class MissionManager : MonoBehaviour
                 }
 
                 if(chanceToPass*100 >= UnityEngine.Random.Range(0,100)){
-                    // this check passes
+            // this check passes
                     continue;
                 }
                 else{
-                    // this check fails
-                    succeedMission = false;
+            // this check fails
                     Debug.Log("Mission failed.");
+                    succeedMission = false;
+                    missions.RemoveAt(missionIndex);
                     // update player stats
                     ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
                     return succeedMission;
@@ -137,10 +141,8 @@ public class MissionManager : MonoBehaviour
         if(mission.followingMission.Count != 0){
             missions.Add(mission.followingMission[0]);
         }
-        // regardless, remove any successfully completed missions and clear log of onscreen missions
-        int missionToRemoveIndex = missions.IndexOf(mission);
-        missions.RemoveAt(missionToRemoveIndex);
-        onScreenMissions.Clear();
+        // regardless, remove any completed missions
+        missions.RemoveAt(missionIndex);
         // update player stats
         ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
         
