@@ -35,6 +35,7 @@ public class MissionManager : MonoBehaviour
             Debug.Log("Mission holder childeren count: " + missionHolder.transform.childCount);
             foreach(Transform missionCard in missionHolder.transform){
                 Destroy(missionCard.gameObject);
+                //missionCard.GetComponent<MissionCard>().missionCardAnimator.SetBool("MissionDone", true);
             }
         }
         if(maxMissionsToShow > CheckMissions()){

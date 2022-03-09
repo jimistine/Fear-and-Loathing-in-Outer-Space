@@ -19,6 +19,7 @@ public class MissionCard : MonoBehaviour
         }
         else{
             thisMission = GameManager.GM.MM.GenerateMission();
+            missionCardAnimator.SetBool("Awake", true);
             if(thisMission != null){
                 headerGroup = gameObject.transform.Find("HeaderGroup");
                 headerGroup.Find("Mission Name").GetComponent<TextMeshProUGUI>().text = thisMission.missionName;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,15 @@ public class GameManager : MonoBehaviour
     public GameObject proceedButton;
     public TextMeshProUGUI statusText;
     public List<string> birthdayWishes;
+    [TextArea(3, 10)]
+    public List<string> gameOverLoyalty;
+    [TextArea(3, 10)]
+    public List<string> gameOverSkill;
+    [TextArea(3, 10)]
+    public List<string> gameOverPower;
+    [TextArea(3, 10)]
+    public List<string> gameOverConfidence;
+    public GameObject restartButton;
     int count = 0;
     // Events don't do anything, but functions can listen to them so they run when that event is invoked
     public UnityEvent onMissionResolved;
@@ -23,6 +33,7 @@ public class GameManager : MonoBehaviour
     void Awake(){
         GM = this;
         onMissionResolved.AddListener(ToggleProceedButton);
+        onMissionResolved.AddListener(GameOverCheck);
         noMissionsAvailable.AddListener(PassTime);
     }
     // Start is called before the first frame update
@@ -78,6 +89,44 @@ public class GameManager : MonoBehaviour
         if(count == birthdayWishes.Count){
             count = 0;
         }
+    }
+    public void GameOverCheck(){
+        if(AM.apprentice.loyalty <= 0){
+            string gameOverText = gameOverLoyalty[Random.Range(0, gameOverLoyalty.Count)];
+            gameOverText = gameOverText.Replace("Darth", AM.apprentice.firstName);
+            statusText.text = gameOverText;
+
+            GameOver();
+        }
+        else if(AM.apprentice.power <= 0){
+            string gameOverText = gameOverPower[Random.Range(0, gameOverPower.Count)];
+            gameOverText = gameOverText.Replace("Darth", AM.apprentice.firstName);
+            statusText.text = gameOverText;
+
+            GameOver();
+        }
+        else if(AM.apprentice.skill <= 0){
+            string gameOverText = gameOverSkill[Random.Range(0, gameOverSkill.Count)];
+            gameOverText = gameOverText.Replace("Darth", AM.apprentice.firstName);
+            statusText.text = gameOverText;
+
+            GameOver();
+        }
+        else if(AM.apprentice.confidence <= 0){
+            string gameOverText = gameOverConfidence[Random.Range(0, gameOverConfidence.Count)];
+            gameOverText = gameOverText.Replace("Darth", AM.apprentice.firstName);
+            statusText.text = gameOverText;
+
+            GameOver();
+        }
+
+    }
+    public void GameOver(){
+        restartButton.SetActive(true);
+        MM.missionHolder.SetActive(false);
+    }
+    public void RestartGame(){
+        SceneManager.LoadScene( SceneManager.GetActiveScene().name );
     }
 
     /*
