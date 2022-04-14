@@ -29,10 +29,11 @@ public class MissionManager : MonoBehaviour
     }
 
 // GM calls this whenever we need to show a new set of missions
+// Determine the number of missions to show, instantiate the cards
     public void ShowMissions(){
         onScreenMissions.Clear();
         if(missionHolder.transform.childCount != 0){
-            Debug.Log("Mission holder childeren count: " + missionHolder.transform.childCount);
+            //Debug.Log("Mission holder childeren count: " + missionHolder.transform.childCount);
             foreach(Transform missionCard in missionHolder.transform){
                 Destroy(missionCard.gameObject);
                 //missionCard.GetComponent<MissionCard>().missionCardAnimator.SetBool("MissionDone", true);
@@ -65,6 +66,7 @@ public class MissionManager : MonoBehaviour
 // MissionCard calls this to figure out what to show
     public Mission GenerateMission(){
         // Go through all the missions, and grab the first one that we're old enough for
+// [] Randomize this
         foreach(Mission mission in missions){
             // Check if we're already showing a copy of this mission
             if(onScreenMissions.Contains(mission)){
