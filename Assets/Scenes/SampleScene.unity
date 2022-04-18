@@ -1309,6 +1309,7 @@ MonoBehaviour:
   missionCard: {fileID: 201170525980698917, guid: 3b2953a40f356b14da59a546a21a1ed4, type: 3}
   missionHolder: {fileID: 1046024181}
   maxMissionsToShow: 2
+  allMissionsJson: {fileID: 4900000, guid: c40f073178c3e6345bf74b40537a3598, type: 3}
   onScreenMissions: []
   missions:
   - missionName: Catch with No Hands
@@ -1317,25 +1318,17 @@ MonoBehaviour:
     maxAge: 11
     description: The day is long and the weather is about as nice as it gets around
       the castle. Why not a game of catching light?
-    passReqs:
-    - Skill - 10
+    passReqs: 
+    succeed: 
+    fail: 
     successText: Your apprentice shows a knack for catching the ball of light you
       throw to them, even if you "accidentally" throw it quite far from them. The
       pleasure the get from the game is impossible to ignore.
     failureText: You weren't expecting much from them, but they've somehow managed
       to be worse at this than you thought possible. The game doesn't last long as
       they seem totally incapable of catching even the slowest pass you can muster.
-    succeed:
-    - nameOfStat: Power
-      value: 2
-    - nameOfStat: Loyalty
-      value: 4
-    fail:
-    - nameOfStat: Confidence
-      value: -2
-    - nameOfStat: Loyalty
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Taming the Crew
     location: 'Orbit of Yardoso Prime '
     minAge: 16
@@ -1345,9 +1338,9 @@ MonoBehaviour:
       battle station orbiting the planet has gone rogue, and are threatening to decimate
       the capital city and its environs if they are not paid handsomely. Send your
       apprentice, and they will take care of the matter.
-    passReqs:
-    - Skill - 60
-    - Confidence - 50
+    passReqs: 
+    succeed: 
+    fail: 
     successText: Several weeks have passed since your apprentice left for Yardoso.
       A scouting bot you sent to the area now reports that the space station has
       disappeared entirely. In the same moment a shadow passes over your window and
@@ -1356,15 +1349,8 @@ MonoBehaviour:
     failureText: 'Not long after you dispatch your apprentice you recieve an irate
       message from Lord Emran: The crew of the battle station is indeed dead, but
       so are the people upon which it crashed.'
-    succeed:
-    - nameOfStat: Confidence
-      value: 10
-    fail:
-    - nameOfStat: Confidence
-      value: -15
-    - nameOfStat: Guilty
-      value: 0
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Treats and Talismans
     location: The Castle
     minAge: 0
@@ -1372,9 +1358,9 @@ MonoBehaviour:
     description: You find a dusty copy of game from your youth in the castle basement,
       "Treats and Talismans". If memory serves it proved to help shape your own strategic
       thinking as a youth, but also spurred more than a handfull of tantrums.
-    passReqs:
-    - Skill - 10
-    - Loyalty - 60
+    passReqs: 
+    succeed: 
+    fail: 
     successText: '"Come now, sit with me and play a game," you say to your apprentice.
       Several hours later and you realize you''ve played half a dozen games with
       the young one and while they''ve yet to win, they remain committed to the task
@@ -1384,17 +1370,8 @@ MonoBehaviour:
       last treat your apprentice flies into a blind rage, flipping the table and
       scattering the pieces. They are not the only one to be disappointed by the
       afternoon's outcome.
-    succeed:
-    - nameOfStat: Confidence
-      value: 3
-    - nameOfStat: Skill
-      value: 3
-    fail:
-    - nameOfStat: Confidence
-      value: -3
-    - nameOfStat: Loyalty
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Bend the Light
     location: The Castle
     minAge: 0
@@ -1402,8 +1379,9 @@ MonoBehaviour:
     description: Today's the day. Their first lesson in harnessing the power of light
       and dark. While they are quite young, the earlier they begin their training
       the better.
-    passReqs:
-    - Power - 20
+    passReqs: 
+    succeed: 
+    fail: 
     successText: You guide them through the stances, utterances, and gestures needed
       to summon light and bend it to your will. They are attentive, and display a
       surprising amount of power for someone their age. A most promising apprentice
@@ -1411,17 +1389,8 @@ MonoBehaviour:
     failureText: You began at dawn and the sun has now set. Your apprentice has failed
       to summon even a spark of light and is clearly becoming frustrated. Perhaps
       they are not as powerful as you had hoped.
-    succeed:
-    - nameOfStat: Confidence
-      value: 5
-    - nameOfStat: Skill
-      value: 3
-    - nameOfStat: Power
-      value: 2
-    fail:
-    - nameOfStat: Confidence
-      value: -4
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: The Children's Gauntlet
     location: The Castle
     minAge: 0
@@ -1429,9 +1398,9 @@ MonoBehaviour:
     description: In the castle basement is a series of obstacles, puzzles and traps
       designed by the best Kugrew engineers in the galaxy. The Kugrew's diminutive
       size makes them perfect for constructing a guantlet for young pupils.
-    passReqs:
-    - Skill - 7
-    - Power - 20
+    passReqs: 
+    succeed: 
+    fail: 
     successText: You set your young apprentice down in front of the gauntlet and
       give them a small push. Their eyes go wide as they approach the first obsctacle
       but they quickly scramble over it and scurry in a blur through the rest of
@@ -1439,15 +1408,8 @@ MonoBehaviour:
     failureText: You set your young apprentice in front of the gauntlet and give
       them a small push. The first obstacle crashes down in front of them and they
       turn around screaming to scurry behind you.
-    succeed:
-    - nameOfStat: Skill
-      value: 10
-    fail:
-    - nameOfStat: Confidence
-      value: -5
-    - nameOfStat: Loyalty
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Seek and Find
     location: The Castle
     minAge: 0
@@ -1456,9 +1418,9 @@ MonoBehaviour:
       hall. You give them five minutes to make it back to the hall. If they make
       it in time, they will recieve a special treat, if not, well...they'd rather
       not find out now would they?
-    passReqs:
-    - Skill - 5
-    - Confidence - 10
+    passReqs: 
+    succeed: 
+    fail: 
     successText: You teleport yourself back to the main hall, and before you can
       resume your place at the table to finish your morning meal of darkness you
       hear the pitter-patter of feet from the far entrance. "Ah, very good, very
@@ -1469,13 +1431,8 @@ MonoBehaviour:
       It's not until the late afternoon that you see your apprentice again, covered
       in dust and cobwebs. They look to be on the verge of tears. "Well, it seems
       like you've discovered your punishment. Come now, and clean yourself up."
-    succeed:
-    - nameOfStat: Confidence
-      value: -5
-    fail:
-    - nameOfStat: Confidence
-      value: -5
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Wild and Dangerous
     location: The Castle
     minAge: 0
@@ -1484,59 +1441,17 @@ MonoBehaviour:
       Cardosian lion. A gift from a darrow root merchant you buy from. You tell your
       apprentice they are to remain in the room for 1 hour, at which point you will
       return and unlock the door.
-    passReqs:
-    - Confidence - 10
-    - Skill - 5
+    passReqs: 
+    succeed: 
+    fail: 
     successText: When you return you find your apprentice fast asleep on the stomach
       of the lion. When they wake up they tell you they've named it "Paul".
     failureText: When you return you find your apprentice and the lion in opposite
       corners of the room, staring at one another. Your apprentice has bled on the
       floor and you can see from their arms whence it came. Your apprentice immediately
       leaves the room telling you they hate lions almost as much as lions hate them.
-    succeed:
-    - nameOfStat: Confidence
-      value: 10
-    - nameOfStat: Power
-      value: 5
-    fail:
-    - nameOfStat: Power
-      value: -5
-    - nameOfStat: Resents nature
-      value: 0
-    followingMission:
-    - missionName: A Test
-      location: The Castle
-      minAge: 11
-      maxAge: 100
-      description: You bring Paul the Cardosian lion out onto the veranda where your
-        apprentice is watching the stars. You tell them that to prove their loyalty
-        to you they must kill the animal. Now.
-      passReqs:
-      - Loyalty - 90
-      successText: You see their shoulders tense as they turn to you, their face
-        a mask of placid calm. While maintaining eye contact with you they reach
-        out their hand and Paul goes to them. As the lion approaches, your apprentice
-        summons two blades of light from their finger tips and plunges them into
-        the face of the creature wich falls dead immediatly.
-      failureText: 'Their shoulders tense. "Why do you ask this of me?"
-
-        "Because,"
-        you say, "we are often required to sacrifice that which we love most in our
-        pursuits. I must know if you are capable of such a sacrifice."
-
-        "I
-        refuse to waste life for no reason," they reply. An instant later and you''ve
-        killed the lion with a deft stroke of crimson light. You turn to your apprentice,
-        "Pity, then, that you should waste a life to rebuke me. Now clean this up."'
-      succeed:
-      - nameOfStat: Power
-        value: 5
-      - nameOfStat: Loyalty
-        value: -5
-      fail:
-      - nameOfStat: Loyalty
-        value: -10
-      followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Wilderness Survival
     location: Castle Grounds
     minAge: 6
@@ -1547,9 +1462,9 @@ MonoBehaviour:
       it. After an hour of subsonic flight, you land, give Darth a pack, send them
       from the shuttle, and tell them to return to the castle as soon as they can.
       And then you leave.
-    passReqs:
-    - Loyalty - 60
-    - Confidence - 13
+    passReqs: 
+    succeed: 
+    fail: 
     successText: 'The following afternoon Darth returns. They''re filthy, but otherwise
       appear unharmed. "Very good, Darth. How was your adventure?"
 
@@ -1560,19 +1475,8 @@ MonoBehaviour:
       far from the place you left them. When you ask them what happened it's all
       they can do to keep from crying. "Pathetic, return to your chambers and clean
       yourself up."
-    succeed:
-    - nameOfStat: Loyalty
-      value: 3
-    - nameOfStat: Confidence
-      value: 3
-    - nameOfStat: Skill
-      value: 3
-    fail:
-    - nameOfStat: Loyalty
-      value: -2
-    - nameOfStat: Confidence
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: The Gauntlet for Growing Disciples
     location: The Castle
     minAge: 6
@@ -1580,8 +1484,9 @@ MonoBehaviour:
     description: A larger and more menacing affair than the Children's Gauntlet,
       this obstacle course was designed to be brutal, even cruel. But your apprentice
       is ready for such a trial, are they not?
-    passReqs:
-    - Skill - 15
+    passReqs: 
+    succeed: 
+    fail: 
     successText: Your apprentice stands for a moment in front of the gauntlet, eyes
       closed. When they begin to walk towards the swinging blades of the first obstacle
       you see a thin tendril of light whisking the air in front of them. As they
@@ -1591,19 +1496,8 @@ MonoBehaviour:
       nerves and watch as their eyes follow the swinging blades of the first obstacle.
       They take one shaky step and you stop them. "Do not be a fool," you say, "this
       gauntlet will indeed kill you. You are not ready. Perhaps you never will be."
-    succeed:
-    - nameOfStat: Confidence
-      value: 5
-    - nameOfStat: Skill
-      value: 3
-    - nameOfStat: Power
-      value: 2
-    fail:
-    - nameOfStat: Confidence
-      value: -2
-    - nameOfStat: Loyalty
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Market Caper
     location: Yungo Market
     minAge: 6
@@ -1613,10 +1507,9 @@ MonoBehaviour:
       you turn to Darth and point to an embellished semi-conductor being offered
       nearby. "Take that bauble, my apprentice, but do not dare to be caught, for
       I will not defend you here."
-    passReqs:
-    - Skill - 15
-    - Confidence - 10
-    - Loyalty - 50
+    passReqs: 
+    succeed: 
+    fail: 
     successText: 'You return to the shuttle watching the sensors and image feeds
       coming in from the satellite you have positioned above. Somehow it loses trace
       of Darth, and as you move to recalibate it you hear their footsteps on the
@@ -1632,15 +1525,8 @@ MonoBehaviour:
       the shuttle with shouting merchants close behind and blood dripping from their
       tunic. So it wasn't jacura then. You launch the shuttle without asking any
       questions. Another disappointment.
-    succeed:
-    - nameOfStat: Power
-      value: 3
-    fail:
-    - nameOfStat: Confidence
-      value: -2
-    - nameOfStat: Power
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Torture Illuminated
     location: The Castle
     minAge: 6
@@ -1650,10 +1536,9 @@ MonoBehaviour:
       one begins to poke and prod, lest they kill a useful asset prematurely. Instruct
       Darth in the ways of torture and they will begin to understand how the galaxy
       really works.
-    passReqs:
-    - Loyalty - 80
-    - Confidence - 15
-    - Power - 30
+    passReqs: 
+    succeed: 
+    fail: 
     successText: You being with a no-name banker from outer rim. An easy enough target
       from which one might extract a secret or two. Darth shows a knack for the craft
       of torture and has the man singing the codes to every account he can think
@@ -1663,17 +1548,8 @@ MonoBehaviour:
       No sooner had Darth begun to work than they tossed up what food they had in
       their stomach. While it's unwise to eat before torture, Darth should nevertheless
       be capable of more evil without upsetting their own anatomy.
-    succeed:
-    - nameOfStat: Power
-      value: 5
-    - nameOfStat: Loyalty
-      value: 3
-    fail:
-    - nameOfStat: Loyalty
-      value: -5
-    - nameOfStat: Confidence
-      value: -5
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: A Contender
     location: Castle Orbit
     minAge: 12
@@ -1682,10 +1558,9 @@ MonoBehaviour:
       taken on an apprentice of their own and would like to challenge Darth to a
       duel. That they know of your apprentice is of some concern, and it could perhaps
       be prudent for this duel to end in the demise of their own.
-    passReqs:
-    - Power - 30
-    - Confidence - 20
-    - Skill - 20
+    passReqs: 
+    succeed: 
+    fail: 
     successText: You agree to the duel and prepare Darth accordingly. A week later
       and it is held on a neutral asteroid arena. The fight is brief but brutal.
       In the end, Darth stands above the body of the contender, a radiant shaft of
@@ -1697,17 +1572,8 @@ MonoBehaviour:
       Darth hardly had time to put up a lightwall shield before their opponent smashed
       them to the ground with pure radiant energy. Darth survives the attack, but
       their ego may never recover.
-    succeed:
-    - nameOfStat: Power
-      value: 10
-    - nameOfStat: Confidence
-      value: 5
-    fail:
-    - nameOfStat: Confidence
-      value: -10
-    - nameOfStat: Power
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Hunt
     location: Cardosian Wilderness
     minAge: 12
@@ -1716,9 +1582,9 @@ MonoBehaviour:
       a Cardosian hunt, and it's been far too long since you last tasted fresh gorung.
       Procuring the rare melon from the depths of the Cardosian wilderness will indeed
       be a suitable challenge for Darth.
-    passReqs:
-    - Power - 35
-    - Loyalty - 50
+    passReqs: 
+    succeed: 
+    fail: 
     successText: The trip is a success and after only a few days, Darth returns to
       the remote outpost villa you've taken with a sack full of gorung melons. There
       is a brief moment you have while feasting on the blue flesh in which you feel
@@ -1728,15 +1594,8 @@ MonoBehaviour:
       unable to locate any gorung fruit, and after a few days returns in the evening
       limping. A Cardosian lion got the better of them and it was all they could
       do to make it back alive.
-    succeed:
-    - nameOfStat: Loyalty
-      value: 4
-    - nameOfStat: Power
-      value: 3
-    fail:
-    - nameOfStat: Loyalty
-      value: -4
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Stranded
     location: Castle Moon
     minAge: 12
@@ -1746,9 +1605,9 @@ MonoBehaviour:
       warned Darth ahead of time to pack for travel, but do not tell them your plan
       to leave them stranded on the moon with only a broken down shuttle as a means
       of return."
-    passReqs:
-    - Loyalty - 50
-    - Skill - 25
+    passReqs: 
+    succeed: 
+    fail: 
     successText: Exactly 48 hours later Darth returns, but they're not in the old
       shuttle you left them. Instead they walk calmy out of a gleaming Rudino-8 lite
       transport. They tell you they were able to hail a group of travelers with the
@@ -1762,15 +1621,8 @@ MonoBehaviour:
       would have died were it not for the shuttle-catchers.\"\r\n\"The what?\" Darth
       asks.\r\n\"And you didn't even anticipate them, did you?\"\r\n\"But I was able
       to get the shuttle to\u2013\"\r\n\"You failed, Darth. You're lucky to be alive.\""
-    succeed:
-    - nameOfStat: Confidence
-      value: 5
-    - nameOfStat: Skill
-      value: 3
-    fail:
-    - nameOfStat: Loyalty
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: A Debate
     location: The Castle
     minAge: 12
@@ -1778,8 +1630,9 @@ MonoBehaviour:
     description: While Darth's training is going well enough, you feel their intellect
       is lacking. Perhaps a debate is in order...yes. With an Ieloron. One of their
       kind should be easy enough to procure for an afternoon.
-    passReqs:
-    - Skill - 35
+    passReqs: 
+    succeed: 
+    fail: 
     successText: The Ieloron manifests for a few hours at your behest and debates
       Darth on a range of topics from the best uses of darrow root to the implications
       of using a vacuum potion in a crowded market. Darth's verbal sparring skills
@@ -1790,15 +1643,8 @@ MonoBehaviour:
       several occasions has naught to say to the spectral mind floating before them.
       It's all you can do to prevent the Ieloron from devouring Darth before you
       dispel the creature.
-    succeed:
-    - nameOfStat: Skill
-      value: 5
-    - nameOfStat: Confidence
-      value: 3
-    fail:
-    - nameOfStat: Skill
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Punishment
     location: The Castle
     minAge: 12
@@ -1807,8 +1653,9 @@ MonoBehaviour:
       cold blood, and that should change. You summon them to your chambers where
       you grab a soul at random from the cosmos. Ah, it's a middle-aged Yardosian.
       They won't be missed. You instruct Darth to kill them. Now.
-    passReqs:
-    - Loyalty - 70
+    passReqs: 
+    succeed: 
+    fail: 
     successText: Darth does as their told with little hesitation and great panache,
       decapitating the confused and trembling Yardosian with a flick of their wrist
       and an orange blade of dull hatred.
@@ -1818,17 +1665,8 @@ MonoBehaviour:
       "Do it," you say, but they do not move. With great disappointment you summon
       another restraining band around the Yardosian's throat and end them with a
       swift yank. What a waste.
-    succeed:
-    - nameOfStat: Loyalty
-      value: 3
-    - nameOfStat: Power
-      value: 3
-    fail:
-    - nameOfStat: Loyalty
-      value: -5
-    - nameOfStat: Confidence
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: An "Assault"
     location: The Castle
     minAge: 12
@@ -1837,9 +1675,9 @@ MonoBehaviour:
       small hours of the morning you flip on all of the castle's defensive measures.
       Alarms immediately begin to ring and you yell at Darth over the intercom to
       their room that the castle is under siege. Their reaction should prove illustrative.
-    passReqs:
-    - Loyalty - 60
-    - Confidence - 10
+    passReqs: 
+    succeed: 
+    fail: 
     successText: 'Moments later Darth enters the command room in their combat gear.
       They calmly approach the center console and examine the alert feed, then turn
       to you perplexed. "Whence does the threat come, master?"
@@ -1852,15 +1690,8 @@ MonoBehaviour:
       command room and they take their time getting there. They look terrified. "What's
       going on?!" They shout over the alarms which you begin to disengage. "Nothing
       but another disappointment," you reply.
-    succeed:
-    - nameOfStat: Loyalty
-      value: 3
-    - nameOfStat: Confidence
-      value: 3
-    fail:
-    - nameOfStat: Confidence
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: A Senator in Your Sights
     location: Tanscoruc System
     minAge: 18
@@ -1871,8 +1702,9 @@ MonoBehaviour:
       they might prove useful in such a situation. Perhaps they can have a word with
       the senator behind the bill and see to it that they change their mind. Discretion,
       and preserving the life of the senator, however, is paramount.
-    passReqs:
-    - Skill - 50
+    passReqs: 
+    succeed: 
+    fail: 
     successText: With the utmost confidence you brief Darth on the situation and
       they absorb every last detail of the plan. They take off in their shuttle the
       following morning and are in Tanscoruc by loop's end. When next you hear from
@@ -1888,17 +1720,8 @@ MonoBehaviour:
       You consider it lucky that investigators were unable to detect the use of magic.
       However even without its champion, the bill passes anyway. When Darth eventually
       returns, you do not speak to them.
-    succeed:
-    - nameOfStat: Power
-      value: 5
-    - nameOfStat: Skill
-      value: 5
-    fail:
-    - nameOfStat: Confidence
-      value: -2
-    - nameOfStat: Power
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Rule of One
     location: Mid-Rim
     minAge: 18
@@ -1908,9 +1731,9 @@ MonoBehaviour:
       begun practicing light-bending, it's all you can do to conceal your rage. Send
       Darth to put down this ramshackle band of fools. Show them exactly what your
       style of magic can do.
-    passReqs:
-    - Loyalty - 50
-    - Power - 50
+    passReqs: 
+    succeed: 
+    fail: 
     successText: Darth reaches the enclave on Hymth Prime and wastes no time in laying
       it to waste. When they return they describe the feeble attempts of the Hymthions
       to fight back with their stolen magic. The rage Darth fealt allowed them to
@@ -1922,13 +1745,8 @@ MonoBehaviour:
       the settlement yourself. The enclave on Hymth Prime is pitiful and you bring
       it to heel with ease. You being to wonder if Darth showed them pity and notice
       the taste of bile rise in your throat.
-    succeed:
-    - nameOfStat: Power
-      value: 5
-    fail:
-    - nameOfStat: Power
-      value: -5
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Of Rats and Pirates
     location: Mid-Rim
     minAge: 18
@@ -1937,9 +1755,9 @@ MonoBehaviour:
       pirates has begun interrupting trade to her kingdom. Worse still they've proven
       resilient against her own forces, somehow able to anticipate her every move.
       A more perfect task for an apprentice one could not ask.
-    passReqs:
-    - Skill - 30
-    - Power - 30
+    passReqs: 
+    succeed: 
+    fail: 
     successText: Darth lives up to the reputation you've curried in the Fendgrand
       Kingdom. Within a loop they are able to not only destroy the pirates, but deliver
       the traitor leaking information to rapscallions to the Lady herself. She is
@@ -1948,17 +1766,8 @@ MonoBehaviour:
       spectacular fashion. While they were able to find the pirates, they imploaded
       the wrong ship. Instead of crippling the pirate fleet, they've managed to destroy
       a Fendrang cruiser and ruin your relationship with the Lady.
-    succeed:
-    - nameOfStat: Loyalty
-      value: 3
-    - nameOfStat: Skill
-      value: 3
-    fail:
-    - nameOfStat: Confidence
-      value: -3
-    - nameOfStat: Skill
-      value: -3
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Coup d'Rot
     location: Castle System
     minAge: 18
@@ -1967,9 +1776,9 @@ MonoBehaviour:
       settled by farmers. The local rulers there are doing quite well for themselves,
       but they do not pay tithes to their powerful neighbor. Whether they know of
       said neighbor is beside the point. Darth should have a word.
-    passReqs:
-    - Loyalty - 40
-    - Power - 35
+    passReqs: 
+    succeed: 
+    fail: 
     successText: Before you know it the castle is inundated with offerings and the
       rulers of this small rock are square within your pocket. They will most certainly
       prove useful someday soon. How Darth managed to accomplish this so quickly
@@ -1978,15 +1787,8 @@ MonoBehaviour:
       Darth was less than subtle in their "discussions" with the locals. Indeed you
       begin to wonder if they even uttered a word before slaughtering the lot of
       them. The planet becomes a desolate rock once again.
-    succeed:
-    - nameOfStat: Loyalty
-      value: 5
-    fail:
-    - nameOfStat: Loyalty
-      value: -3
-    - nameOfStat: Power
-      value: 5
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Boy in a Bag
     location: Mid-Rim
     minAge: 18
@@ -1994,8 +1796,9 @@ MonoBehaviour:
     description: The smith who forges your hyper-cauldrons has recently grown a conscious
       and is refusing to do business with you because of your "vile and tainted magics
       of evil". Dispatch Darth to kidnap the man's son and see if his opinion changes.
-    passReqs:
-    - Skill - 45
+    passReqs: 
+    succeed: 
+    fail: 
     successText: The boy is delivered to you summarily. Darth tells you that the
       smithy was willing to do business even before Darth took the child, but felt
       the message was better sent if they followed through. How right they were.
@@ -2005,17 +1808,8 @@ MonoBehaviour:
       Darth's capabilities. Still, it's a shame the galaxy should lose such a talented
       smithy and his only progeny. At least Darth was able to bring a few cauldrons
       back, but alas, they're all the wrong size for your burners.
-    succeed:
-    - nameOfStat: Skill
-      value: 3
-    - nameOfStat: Confidence
-      value: 3
-    - nameOfStat: Loyalty
-      value: 2
-    fail:
-    - nameOfStat: Confidence
-      value: -2
-    followingMission: []
+    previousMission: 
+    followingMission: 
   - missionName: Corandis Cornered
     location: Outer Rim
     minAge: 18
@@ -2026,9 +1820,9 @@ MonoBehaviour:
       passes your deck, you think perhaps now might be the time to get involved in
       the game. Darth has been asking for a pet project, and this should entertain
       them thoroughly.
-    passReqs:
-    - Skill - 45
-    - Power - 50
+    passReqs: 
+    succeed: 
+    fail: 
     successText: Darth seems to be almost too capable operating in the underworld
       of the outer rim. Within a fortnight they are able to dismantle the operations
       of several smaller smugglers. From the urchins that crawl out from under the
@@ -2040,15 +1834,10 @@ MonoBehaviour:
       device to good use. You wish you could say you're surprised with the outcome,
       but honestly the only thing surprising about the situation is that Darth is
       still breathing at all.
-    succeed:
-    - nameOfStat: Confidence
-      value: 5
-    - nameOfStat: Power
-      value: 4
-    fail:
-    - nameOfStat: Power
-      value: -4
-    followingMission: []
+    previousMission: 
+    followingMission: 
+  missionsJSON:
+    allMissions: []
 --- !u!1 &691775452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,6 +2419,8 @@ MonoBehaviour:
     confidence: 0
     skill: 0
     attribtues: []
+  missionStatUpdateToCheck: 
+  testString: Power - 3, Confidence - 4
 --- !u!4 &1099210581
 Transform:
   m_ObjectHideFlags: 0

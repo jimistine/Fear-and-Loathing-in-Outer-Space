@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
 using System;
+using System.Linq;
 
 public class MissionManager : MonoBehaviour
 {
@@ -11,14 +12,21 @@ public class MissionManager : MonoBehaviour
     public GameObject missionHolder;
     public int maxMissionsToShow;
     int missionsToShow;
+    public TextAsset allMissionsJson;
     public List<Mission> onScreenMissions;
     public List<Mission> missions;
+    public AllMissions missionsJSON;
+
     ApprenticeManager AM;
     
 
     void Start()
     {
         AM = ApprenticeManager.AM;
+
+        missionsJSON = JsonUtility.FromJson<AllMissions>(allMissionsJson.text);
+
+        //Debug.Log("Mission from JSON is called: " + missionsJSON.allMissions[1].missionName);
 
     }
 
@@ -88,17 +96,25 @@ public class MissionManager : MonoBehaviour
         Debug.Log("Resolving: " + mission.missionName);
         bool succeedMission;
         int missionIndex = missions.IndexOf(mission);
-        foreach (string qualifierWithStat in mission.passReqs){
-            string quailifier = Regex.Match(qualifierWithStat, @"^.*?(?= - )").Value;
-            string reqStatStr = Regex.Match(qualifierWithStat, @"[^ - ]*$").Value;
-            Debug.Log("Quailifier with stat: " + qualifierWithStat + "\nRequired Stat as string: " + reqStatStr);
+
+        MatchCollection matchList = Regex.Matches(mission.passReqs, @"^.*?(?= - )", RegexOptions.Multiline);
+        List<string> nameOfStatList = matchList.Cast<Match>().Select(match => match.Value).ToList();
+        MatchCollection matchListStats = Regex.Matches(mission.passReqs, @"[^ - ]*$", RegexOptions.Multiline);
+        List<string> valueOfStatList = matchList.Cast<Match>().Select(match => match.Value).ToList();
+
+        for(int i = 0; i < nameOfStatList.Count(); i++){
+            //Debug.Log("Pass reqs: " + nameOfStatList[i] + " " + valueOfStatList[i]);
+            string quailifier = nameOfStatList[i];
+            string reqStatStr = valueOfStatList[i];
+
+            Debug.Log("Quailifier: " + quailifier + "\nRequired Stat: " + reqStatStr);
             if(quailifier == "Attribute"){
                 if(AM.apprentice.attribtues.Contains(reqStatStr)){
-            // this check passes
+                    // this check passes
                     continue;
                 }
                 else{
-            // this check fails, mission is failed
+                    // this check fails, mission is failed
                     Debug.Log("Mission failed.");
                     succeedMission = false;
                     missions.RemoveAt(missionIndex);
@@ -136,14 +152,65 @@ public class MissionManager : MonoBehaviour
                     return succeedMission;
                 }
             }
-        } 
+        }
+            // List<string> passRequirements = new List<string>();
+            // passRequirements.Add(mission.passReqs);
+            // // foreach (string qualifierWithStat in passRequirements){
+        //     string quailifier = Regex.Match(qualifierWithStat, @"^.*?(?= - )").Value;
+        //     string reqStatStr = Regex.Match(qualifierWithStat, @"[^ - ]*$").Value;
+        //     Debug.Log("Quailifier with stat: " + qualifierWithStat + "\nRequired Stat as string: " + reqStatStr);
+        //     if(quailifier == "Attribute"){
+        //         if(AM.apprentice.attribtues.Contains(reqStatStr)){
+        //     // this check passes
+        //             continue;
+        //         }
+        //         else{
+        //     // this check fails, mission is failed
+        //             Debug.Log("Mission failed.");
+        //             succeedMission = false;
+        //             missions.RemoveAt(missionIndex);
+        //             // update player stats
+        //             ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
+        //             return succeedMission;
+        //         }
+        //     }
+        //     else{
+        //         float reqStat = Int32.Parse(reqStatStr);
+        //         if(quailifier == "Loyalty"){
+        //             chanceToPass = AM.apprentice.loyalty/reqStat;
+        //         }
+        //         if(quailifier == "Power"){
+        //             chanceToPass = AM.apprentice.power/reqStat;
+        //         }
+        //         if(quailifier == "Skill"){
+        //             chanceToPass = AM.apprentice.skill/reqStat;
+        //         }
+        //         if(quailifier == "Confidence"){
+        //             chanceToPass = AM.apprentice.confidence/reqStat;
+        //         }
+
+        //         if(chanceToPass*100 >= UnityEngine.Random.Range(0,100)){
+        //     // this check passes
+        //             continue;
+        //         }
+        //         else{
+        //     // this check fails
+        //             Debug.Log("Mission failed.");
+        //             succeedMission = false;
+        //             missions.RemoveAt(missionIndex);
+        //             // update player stats
+        //             ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
+        //             return succeedMission;
+        //         }
+        //     }
+        // } 
         // If it gets through everything without failing, its a success!
         succeedMission = true;
 
         // check to see if it has a mission in its followup list, if so, add it to the list
-        if(mission.followingMission.Count != 0){
-            missions.Add(mission.followingMission[0]);
-        }
+            // if(mission.followingMission != ""){
+            //     missions.Add(mission.followingMission[0]);
+            // }
         // regardless, remove any completed missions
         missions.RemoveAt(missionIndex);
         // update player stats

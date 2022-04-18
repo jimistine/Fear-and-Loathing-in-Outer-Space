@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using System;
+using System.Linq;
 
 
 public class ApprenticeManager : MonoBehaviour
 {
     public Apprentice apprentice;
     public static ApprenticeManager AM;
-    List<StatCheckChange> missionStatUpdateToCheck;
+    public string missionStatUpdateToCheck;
+
+    [TextArea(2,10)]
+    public string testString;
 
     void Awake(){
         AM = this;
@@ -16,6 +21,14 @@ public class ApprenticeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MatchCollection matchList = Regex.Matches(testString, @"\w+");
+        var list = matchList.Cast<Match>().Select(match => match.Value).ToList();
+        for(int i = 0; i < list.Count(); i++){
+            // maybe I get all the words and then separate them to two lists from there
+            if(i % 2 == 0){
+                Debug.Log("Regex returned: " + list[i]);
+            }
+        }
         
     }
 
@@ -37,27 +50,41 @@ public class ApprenticeManager : MonoBehaviour
         else{
             missionStatUpdateToCheck = mission.fail;
         }
-        foreach(StatCheckChange missionResult in missionStatUpdateToCheck){
-            if(missionResult.nameOfStat == "Loyalty"){
-                apprentice.loyalty += missionResult.value;
-            }
-            else if(missionResult.nameOfStat == "Power"){
-                apprentice.power += missionResult.value;
-            }
-            else if(missionResult.nameOfStat == "Skill"){
-                apprentice.skill += missionResult.value;
-            }
-            else if(missionResult.nameOfStat == "Confidence"){
-                apprentice.confidence += missionResult.value;
-            }
-            else if(apprentice.attribtues.Contains(missionResult.nameOfStat)){
-                int attributeToRemoveIndex = apprentice.attribtues.IndexOf(missionResult.nameOfStat);
-                apprentice.attribtues.RemoveAt(attributeToRemoveIndex);
-            }
-            else{
-                apprentice.attribtues.Add(missionResult.nameOfStat);
-            }
+
+        MatchCollection matchList = Regex.Matches(missionStatUpdateToCheck, @"^.*?(?= - )", RegexOptions.Multiline);
+        List<string> nameOfStatList = matchList.Cast<Match>().Select(match => match.Value).ToList();
+        MatchCollection matchListStats = Regex.Matches(missionStatUpdateToCheck, @"[^ - ]*$", RegexOptions.Multiline);
+        List<int> valueOfStatList = matchList.Cast<Match>().Select(match => Int32.Parse(match.Value)).ToList();
+
+        //string nameOfStat = Regex.Match(missionStatUpdateToCheck, @"^.*?(?= - )").Value;
+        //float statChangeValue = Int32.Parse(Regex.Match(missionStatUpdateToCheck, @"[^ - ]*$").Value);
+        Debug.Log("Count for stat iteration: " + nameOfStatList.Count());
+        for(int i = 0; i < nameOfStatList.Count(); i++){
+            ApplyStatChange(nameOfStatList[i], valueOfStatList[i]);
         }
         GameManager.GM.ApprenticeCard.UpdateApprenticeCard();
+    }
+
+    public void ApplyStatChange(string nameOfStat, float statChangeValue){
+        if(nameOfStat == "Loyalty"){
+            apprentice.loyalty += statChangeValue;
+        }
+        else if(nameOfStat == "Power"){
+            apprentice.power += statChangeValue;
+        }
+        else if(nameOfStat == "Skill"){
+            apprentice.skill += statChangeValue;
+        }
+        else if(nameOfStat == "Confidence"){
+            apprentice.confidence += statChangeValue;
+        }
+        else if(apprentice.attribtues.Contains(nameOfStat)){
+            int attributeToRemoveIndex = apprentice.attribtues.IndexOf(nameOfStat);
+            apprentice.attribtues.RemoveAt(attributeToRemoveIndex);
+        }
+        else{
+            apprentice.attribtues.Add(nameOfStat);
+        }
+        Debug.Log("Added " + statChangeValue + " to " + nameOfStat);
     }
 }

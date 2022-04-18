@@ -10,14 +10,17 @@ public class Mission{
     public float maxAge;
     [TextArea(3, 10)]
     public string description;
-    public List<string> passReqs;
+    [TextArea(2, 10)]
+    public string passReqs;
+    [TextArea(2, 10)]
+    public string succeed;
+    [TextArea(2, 10)]
+    public string fail;
     [TextArea(3, 10)]
     public string successText;
     [TextArea(3, 10)]
     public string failureText;
-    [Header("Stat Updates")]
-    public List<StatCheckChange> succeed;
-    public List<StatCheckChange> fail;
-    [Space(5)]
-    public List<Mission> followingMission;
+    public string previousMission;
+    public string followingMission;
+    //public List<Mission> followingMission;
 }

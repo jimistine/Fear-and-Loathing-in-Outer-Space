@@ -47,11 +47,11 @@ public class MissionCard : MonoBehaviour
 
         // we update the desc text on the animator behavior
         if(missionSuccess){
-            thisMission.successText += "\n" + thisMission.succeed[0].nameOfStat + "<color=green> +" + thisMission.succeed[0].value + "</color>";
+            thisMission.successText += "\n" + "<color=green> +" + thisMission.succeed + "</color>";
             missionCardAnimator.SetBool("MissionSucceed", true);
         }
         else{
-            thisMission.failureText += "\n" + thisMission.fail[0].nameOfStat + "<color=red> " + thisMission.fail[0].value + "</color>";
+            thisMission.failureText += "\n" + "<color=red> " + thisMission.fail + "</color>";
             missionCardAnimator.SetBool("MissionSucceed", false);
         }
         // Turn on button to proceede to the next set of missions
