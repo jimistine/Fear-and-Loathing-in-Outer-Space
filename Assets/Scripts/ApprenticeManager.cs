@@ -21,14 +21,17 @@ public class ApprenticeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MatchCollection matchList = Regex.Matches(testString, @"\w+");
-        var list = matchList.Cast<Match>().Select(match => match.Value).ToList();
-        for(int i = 0; i < list.Count(); i++){
-            // maybe I get all the words and then separate them to two lists from there
-            if(i % 2 == 0){
-                Debug.Log("Regex returned: " + list[i]);
-            }
-        }
+        // MatchCollection matchList = Regex.Matches(testString, @"\w+");
+        // var list = matchList.Cast<Match>().Select(match => match.Value).ToList();
+        // for(int i = 0; i < list.Count(); i++){
+        //     // maybe I get all the words and then separate them to two lists from there
+        //     if(i % 2 == 0){
+        //         Debug.Log("Regex returned on mod 2: " + list[i]);
+        //     }
+        //     else{
+        //         Debug.Log("Regex returned on else: " + list[i]);
+        //     }
+        // }
         
     }
 
@@ -50,17 +53,30 @@ public class ApprenticeManager : MonoBehaviour
         else{
             missionStatUpdateToCheck = mission.fail;
         }
+        //Debug.Log("Mission updates to check: " + missionStatUpdateToCheck);
 
-        MatchCollection matchList = Regex.Matches(missionStatUpdateToCheck, @"^.*?(?= - )", RegexOptions.Multiline);
-        List<string> nameOfStatList = matchList.Cast<Match>().Select(match => match.Value).ToList();
-        MatchCollection matchListStats = Regex.Matches(missionStatUpdateToCheck, @"[^ - ]*$", RegexOptions.Multiline);
-        List<int> valueOfStatList = matchList.Cast<Match>().Select(match => Int32.Parse(match.Value)).ToList();
+        MatchCollection matchListRegex = Regex.Matches(missionStatUpdateToCheck, @"\w+");
+        var matchList = matchListRegex.Cast<Match>().Select(match => match.Value).ToList();
 
-        //string nameOfStat = Regex.Match(missionStatUpdateToCheck, @"^.*?(?= - )").Value;
-        //float statChangeValue = Int32.Parse(Regex.Match(missionStatUpdateToCheck, @"[^ - ]*$").Value);
-        Debug.Log("Count for stat iteration: " + nameOfStatList.Count());
+        List<string> nameOfStatList = new List<string>();
+        List<string> valueOfStatList = new List<string>();
+
+        for(int i = 0; i < matchList.Count(); i++){
+                if(i % 2 == 0){
+                    nameOfStatList.Add(matchList[i]);
+                }
+                else{
+                    valueOfStatList.Add(matchList[i]);
+                }
+            }
         for(int i = 0; i < nameOfStatList.Count(); i++){
-            ApplyStatChange(nameOfStatList[i], valueOfStatList[i]);
+            if(missionSuccess){
+                ApplyStatChange(nameOfStatList[i], float.Parse(valueOfStatList[i]));
+            }
+            else{
+                float valToLose = float.Parse(valueOfStatList[i]) * -1;
+                ApplyStatChange(nameOfStatList[i], valToLose);
+            }
         }
         GameManager.GM.ApprenticeCard.UpdateApprenticeCard();
     }

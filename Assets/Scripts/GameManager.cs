@@ -170,9 +170,14 @@ public class GameManager : MonoBehaviour
         - Was it a success or failure?
         - Update Apprentice stats/attributes
     [x] Get more missions
-    [] populate missions
-    [] Missions are read in from CSV
-    [] Mission chance of success is shown
+    [x] populate missions
+    [x] Missions are read in from CSV
+    [x] Missions in random order
+    [] Turn counter
+    [] Win state
+    [] Audio
+    [] More missions
+    [] More clarity in stats being checked / Mission chance of success is shown
     [] Missions show when more than one stat is updated
     [] More room to read missions
     */

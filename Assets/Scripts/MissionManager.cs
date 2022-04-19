@@ -14,19 +14,18 @@ public class MissionManager : MonoBehaviour
     int missionsToShow;
     public TextAsset allMissionsJson;
     public List<Mission> onScreenMissions;
+    public List<string> successfulMissions;
     public List<Mission> missions;
-    public AllMissions missionsJSON;
+    private AllMissions missionsJSON;
 
     ApprenticeManager AM;
-    
 
     void Start()
     {
         AM = ApprenticeManager.AM;
 
         missionsJSON = JsonUtility.FromJson<AllMissions>(allMissionsJson.text);
-
-        //Debug.Log("Mission from JSON is called: " + missionsJSON.allMissions[1].missionName);
+        missions = missionsJSON.allMissions.ToList();
 
     }
 
@@ -59,13 +58,26 @@ public class MissionManager : MonoBehaviour
         }
     }
     
-
     public int CheckMissions(){
         int missionsAvailable = 0;
         foreach(Mission mission in missions){
             if(AM.apprentice.age >= mission.minAge && AM.apprentice.age <= mission.maxAge){
-                missionsAvailable ++;
-                //Debug.Log(mission.missionName + " available");
+                if(mission.previousMission == "None"){
+                    missionsAvailable ++;
+                    Debug.Log(mission.missionName + " available");
+                }
+                else{
+                    if(successfulMissions.Contains(mission.previousMission)){
+                        missionsAvailable ++;
+                        Debug.Log(mission.missionName + " available");
+                    }
+                    else{
+                        continue;
+                    }
+                }
+            }
+            else{
+                continue;
             }
         }
         return missionsAvailable;
@@ -73,16 +85,38 @@ public class MissionManager : MonoBehaviour
 
 // MissionCard calls this to figure out what to show
     public Mission GenerateMission(){
+
+        // shuffle that bad boy
+        for (int i = 0; i < missions.Count; i++) {
+            Mission temp = missions[i];
+            int randomIndex = UnityEngine.Random.Range(i, missions.Count);
+            missions[i] = missions[randomIndex];
+            missions[randomIndex] = temp;
+        }
+
         // Go through all the missions, and grab the first one that we're old enough for
-// [] Randomize this
         foreach(Mission mission in missions){
+            // int newMissionIndex = UnityEngine.Random.Range(0, missions.Count());
+            // Mission mission = missions[newMissionIndex];
             // Check if we're already showing a copy of this mission
             if(onScreenMissions.Contains(mission)){
                 continue;
-            }
+            } // Check to make sure we're old enough to ride (but not too old!)
             else if(AM.apprentice.age >= mission.minAge && AM.apprentice.age <= mission.maxAge){
-                onScreenMissions.Add(mission);
-                return mission;
+                // Is this part of a chain of missions?
+                if(mission.previousMission == "None"){
+                    onScreenMissions.Add(mission);
+                    return mission;
+                }
+                else{
+                    if(successfulMissions.Contains(mission.previousMission)){
+                        onScreenMissions.Add(mission);
+                        return mission;
+                    }
+                    else{
+                        continue;
+                    }
+                }
             }
         }
         // If there weren't any, we're out of new missions
@@ -92,22 +126,32 @@ public class MissionManager : MonoBehaviour
     }
 
     float chanceToPass;
+
     public bool ResolveMission(Mission mission){
         Debug.Log("Resolving: " + mission.missionName);
         bool succeedMission;
         int missionIndex = missions.IndexOf(mission);
 
-        MatchCollection matchList = Regex.Matches(mission.passReqs, @"^.*?(?= - )", RegexOptions.Multiline);
-        List<string> nameOfStatList = matchList.Cast<Match>().Select(match => match.Value).ToList();
-        MatchCollection matchListStats = Regex.Matches(mission.passReqs, @"[^ - ]*$", RegexOptions.Multiline);
-        List<string> valueOfStatList = matchList.Cast<Match>().Select(match => match.Value).ToList();
+        MatchCollection matchListRegex = Regex.Matches(mission.passReqs, @"\w+");
+        var matchList = matchListRegex.Cast<Match>().Select(match => match.Value).ToList();
+
+        List<string> nameOfStatList = new List<string>();
+        List<string> valueOfStatList = new List<string>();
+
+        for(int i = 0; i < matchList.Count(); i++){
+                if(i % 2 == 0){
+                    nameOfStatList.Add(matchList[i]);
+                }
+                else{
+                    valueOfStatList.Add(matchList[i]);
+                }
+            }
 
         for(int i = 0; i < nameOfStatList.Count(); i++){
-            //Debug.Log("Pass reqs: " + nameOfStatList[i] + " " + valueOfStatList[i]);
+            Debug.Log("Pass reqs: " + nameOfStatList[i] + " " + valueOfStatList[i]);
             string quailifier = nameOfStatList[i];
             string reqStatStr = valueOfStatList[i];
 
-            Debug.Log("Quailifier: " + quailifier + "\nRequired Stat: " + reqStatStr);
             if(quailifier == "Attribute"){
                 if(AM.apprentice.attribtues.Contains(reqStatStr)){
                     // this check passes
@@ -124,7 +168,7 @@ public class MissionManager : MonoBehaviour
                 }
             }
             else{
-                float reqStat = Int32.Parse(reqStatStr);
+                float reqStat = float.Parse(reqStatStr);
                 if(quailifier == "Loyalty"){
                     chanceToPass = AM.apprentice.loyalty/reqStat;
                 }
@@ -153,65 +197,11 @@ public class MissionManager : MonoBehaviour
                 }
             }
         }
-            // List<string> passRequirements = new List<string>();
-            // passRequirements.Add(mission.passReqs);
-            // // foreach (string qualifierWithStat in passRequirements){
-        //     string quailifier = Regex.Match(qualifierWithStat, @"^.*?(?= - )").Value;
-        //     string reqStatStr = Regex.Match(qualifierWithStat, @"[^ - ]*$").Value;
-        //     Debug.Log("Quailifier with stat: " + qualifierWithStat + "\nRequired Stat as string: " + reqStatStr);
-        //     if(quailifier == "Attribute"){
-        //         if(AM.apprentice.attribtues.Contains(reqStatStr)){
-        //     // this check passes
-        //             continue;
-        //         }
-        //         else{
-        //     // this check fails, mission is failed
-        //             Debug.Log("Mission failed.");
-        //             succeedMission = false;
-        //             missions.RemoveAt(missionIndex);
-        //             // update player stats
-        //             ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
-        //             return succeedMission;
-        //         }
-        //     }
-        //     else{
-        //         float reqStat = Int32.Parse(reqStatStr);
-        //         if(quailifier == "Loyalty"){
-        //             chanceToPass = AM.apprentice.loyalty/reqStat;
-        //         }
-        //         if(quailifier == "Power"){
-        //             chanceToPass = AM.apprentice.power/reqStat;
-        //         }
-        //         if(quailifier == "Skill"){
-        //             chanceToPass = AM.apprentice.skill/reqStat;
-        //         }
-        //         if(quailifier == "Confidence"){
-        //             chanceToPass = AM.apprentice.confidence/reqStat;
-        //         }
-
-        //         if(chanceToPass*100 >= UnityEngine.Random.Range(0,100)){
-        //     // this check passes
-        //             continue;
-        //         }
-        //         else{
-        //     // this check fails
-        //             Debug.Log("Mission failed.");
-        //             succeedMission = false;
-        //             missions.RemoveAt(missionIndex);
-        //             // update player stats
-        //             ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
-        //             return succeedMission;
-        //         }
-        //     }
-        // } 
+            
         // If it gets through everything without failing, its a success!
         succeedMission = true;
+        successfulMissions.Add(mission.missionName);
 
-        // check to see if it has a mission in its followup list, if so, add it to the list
-            // if(mission.followingMission != ""){
-            //     missions.Add(mission.followingMission[0]);
-            // }
-        // regardless, remove any completed missions
         missions.RemoveAt(missionIndex);
         // update player stats
         ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);

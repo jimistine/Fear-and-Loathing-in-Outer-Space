@@ -60,19 +60,5 @@ public class MissionCard : MonoBehaviour
         foreach(GameObject card in GameObject.FindGameObjectsWithTag("missionCard")){
             card.GetComponent<MissionCard>().missionCardAnimator.SetBool("Visible", false);
         }
-        //GameManager.GM.proceedButton.SetActive(true);
-        //okButton.SetActive(true);
-    }
-
-    // public void Proceed(){
-    //     GameManager.GM.MM.ShowMissions();
-    // }
-    void Start(){
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    
     }
 }
