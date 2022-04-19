@@ -8,8 +8,13 @@ public class ApprenticeCard : MonoBehaviour
 {
     public Apprentice thisApprentice;
     public Animator cardAnimator;
+
+    public AudioManager AudMan;
+
+
     void Start()
     {
+        AudMan = AudioManager.AudMan;
         thisApprentice = GameManager.GM.AG.GenerateApprentice();
         UpdateApprenticeCard();
     }
@@ -46,8 +51,12 @@ public class ApprenticeCard : MonoBehaviour
         GameManager.GM.ApprenticeChosen(thisApprentice);
         cardAnimator.SetBool("Chosen", true);
         gameObject.tag = "chosen";
+        AudMan.PlayMiscSFX(0);
         foreach(GameObject card in GameObject.FindGameObjectsWithTag("candidate")){
             card.GetComponent<ApprenticeCard>().cardAnimator.SetBool("Remove", true);
         }
+    }
+    public void ApprenticeButtonAudio(int indexToPass){
+        AudMan.PlayButtonSFX(indexToPass);
     }
 }

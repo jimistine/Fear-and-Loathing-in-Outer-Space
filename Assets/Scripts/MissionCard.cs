@@ -10,9 +10,11 @@ public class MissionCard : MonoBehaviour
     public GameObject okButton;
     public Animator missionCardAnimator;
     public Transform headerGroup;
+    public AudioManager AM;
     public bool missionSuccess;
 
     void Awake(){
+        AM = AudioManager.AudMan;
         // grab the mission
         if(GameManager.GM.MM.CheckMissions() == 0 ){
             Destroy(this.gameObject);
@@ -60,5 +62,8 @@ public class MissionCard : MonoBehaviour
         foreach(GameObject card in GameObject.FindGameObjectsWithTag("missionCard")){
             card.GetComponent<MissionCard>().missionCardAnimator.SetBool("Visible", false);
         }
+    }
+    public void playMissionCardSFX(int indexToPass){
+        AM.PlayButtonSFX(indexToPass);
     }
 }

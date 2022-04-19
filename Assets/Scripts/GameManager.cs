@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager GM;
     public ApprenticeManager AM;
     public ApprenticeGenerator AG;
+    public AudioManager AudMan;
     public ApprenticeCard ApprenticeCard;
     public int timePassed;
     public MissionManager MM;
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Showing missions");
             proceedButton.SetActive(false);
             MM.ShowMissions();
+            AudMan.PlayButtonSFX(2);
         }
     }
     public void ApprenticeChosen(Apprentice newApprentice){
@@ -83,6 +85,7 @@ public class GameManager : MonoBehaviour
 
     public void Birthday(){
         ApprenticeCard.UpdateApprenticeCard();
+        AudMan.PlayMiscSFX(0);
         //birthdayWishes.Count(); i++)
         statusText.text = birthdayWishes[count];
         count++;
@@ -123,6 +126,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver(){
         restartButton.SetActive(true);
+        AudMan.PlayMiscSFX(1);
         MM.missionHolder.SetActive(false);
     }
     public void RestartGame(){
@@ -176,6 +180,16 @@ public class GameManager : MonoBehaviour
     [] Turn counter
     [] Win state
     [] Audio
+        [] Ambient
+        [] Hover
+        [] Click
+        [] New cards
+        [] Resolving mission
+            [] Success
+            [] Failure
+        [] Moving apprentice over
+        [] Birthday
+        [] Lose game
     [] More missions
     [] More clarity in stats being checked / Mission chance of success is shown
     [] Missions show when more than one stat is updated
