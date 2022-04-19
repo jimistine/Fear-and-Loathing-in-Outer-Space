@@ -21,6 +21,5 @@ public class Mission{
     [TextArea(3, 10)]
     public string failureText;
     public string previousMission;
-    public string followingMission;
-    //public List<Mission> followingMission;
+    public string previousMissionResultNeeded;
 }

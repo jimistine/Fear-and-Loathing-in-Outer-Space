@@ -37,7 +37,7 @@ public class ApprenticeCard : MonoBehaviour
             statGroup.transform.Find("Power").gameObject.GetComponent<TextMeshProUGUI>().text = "<b>" + thisApprentice.power.ToString() + "</b><size=20>" + "/100";
         }
         if(thisApprentice.age < 10){
-            headerGroup.transform.Find("Attributes").gameObject.GetComponent<TextMeshProUGUI>().text = "Unknown";
+            headerGroup.transform.Find("Attributes").gameObject.GetComponent<TextMeshProUGUI>().text = "Personality unknown";
         }
         else{
             headerGroup.transform.Find("Attributes").gameObject.GetComponent<TextMeshProUGUI>().text = string.Join(", ", thisApprentice.attribtues);

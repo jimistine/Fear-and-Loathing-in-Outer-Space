@@ -28,7 +28,6 @@ public class MissionCard : MonoBehaviour
                 // Location
                 headerGroup.Find("Location").GetComponent<TextMeshProUGUI>().text = thisMission.location;
                 // Desc
-                thisMission.description = thisMission.description.Replace("your apprentice", ApprenticeManager.AM.apprentice.firstName);
                 thisMission.description = thisMission.description.Replace("Darth", ApprenticeManager.AM.apprentice.firstName);
                 headerGroup.Find("Description").GetComponent<TextMeshProUGUI>().text = thisMission.description;
                 // Change the other description texts while we're here
@@ -49,11 +48,11 @@ public class MissionCard : MonoBehaviour
 
         // we update the desc text on the animator behavior
         if(missionSuccess){
-            thisMission.successText += "\n" + "<color=green> +" + thisMission.succeed + "</color>";
+            thisMission.successText += "\n" + "<color=green>" + thisMission.succeed + "</color>";
             missionCardAnimator.SetBool("MissionSucceed", true);
         }
         else{
-            thisMission.failureText += "\n" + "<color=red> " + thisMission.fail + "</color>";
+            thisMission.failureText += "\n" + "<color=red>" + thisMission.fail + "</color>";
             missionCardAnimator.SetBool("MissionSucceed", false);
         }
         // Turn on button to proceede to the next set of missions

@@ -15,6 +15,7 @@ public class MissionManager : MonoBehaviour
     public TextAsset allMissionsJson;
     public List<Mission> onScreenMissions;
     public List<string> successfulMissions;
+    public List<string> failedMissions;
     public List<Mission> missions;
     private AllMissions missionsJSON;
 
@@ -66,8 +67,9 @@ public class MissionManager : MonoBehaviour
                     missionsAvailable ++;
                     Debug.Log(mission.missionName + " available");
                 }
-                else{
-                    if(successfulMissions.Contains(mission.previousMission)){
+                else{  // Check requirements for mission chains
+                    if(mission.previousMissionResultNeeded == "Success" && successfulMissions.Contains(mission.previousMission)
+                    || mission.previousMissionResultNeeded == "Failure" && failedMissions.Contains(mission.previousMission)){
                         missionsAvailable ++;
                         Debug.Log(mission.missionName + " available");
                     }
@@ -84,6 +86,7 @@ public class MissionManager : MonoBehaviour
     }
 
 // MissionCard calls this to figure out what to show
+// Should mirror CheckMissions
     public Mission GenerateMission(){
 
         // shuffle that bad boy
@@ -96,8 +99,6 @@ public class MissionManager : MonoBehaviour
 
         // Go through all the missions, and grab the first one that we're old enough for
         foreach(Mission mission in missions){
-            // int newMissionIndex = UnityEngine.Random.Range(0, missions.Count());
-            // Mission mission = missions[newMissionIndex];
             // Check if we're already showing a copy of this mission
             if(onScreenMissions.Contains(mission)){
                 continue;
@@ -108,8 +109,9 @@ public class MissionManager : MonoBehaviour
                     onScreenMissions.Add(mission);
                     return mission;
                 }
-                else{
-                    if(successfulMissions.Contains(mission.previousMission)){
+                else{ // Check requirements for mission chains
+                    if(mission.previousMissionResultNeeded == "Success" && successfulMissions.Contains(mission.previousMission)
+                    || mission.previousMissionResultNeeded == "Failure" && failedMissions.Contains(mission.previousMission)){
                         onScreenMissions.Add(mission);
                         return mission;
                     }
@@ -117,6 +119,9 @@ public class MissionManager : MonoBehaviour
                         continue;
                     }
                 }
+            }
+            else{ // if we're outside the age range, go to the next
+                continue;
             }
         }
         // If there weren't any, we're out of new missions
@@ -152,7 +157,8 @@ public class MissionManager : MonoBehaviour
             string quailifier = nameOfStatList[i];
             string reqStatStr = valueOfStatList[i];
 
-            if(quailifier == "Attribute"){
+            // They need this attribute to pass
+            if(quailifier == "NeedAttribute"){
                 if(AM.apprentice.attribtues.Contains(reqStatStr)){
                     // this check passes
                     continue;
@@ -161,13 +167,31 @@ public class MissionManager : MonoBehaviour
                     // this check fails, mission is failed
                     Debug.Log("Mission failed.");
                     succeedMission = false;
+                    failedMissions.Add(mission.missionName);
                     missions.RemoveAt(missionIndex);
                     // update player stats
                     ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
                     return succeedMission;
                 }
             }
-            else{
+            // If they have this attribute, they DON'T pass
+            else if(quailifier == "BadAttribute"){
+                if(AM.apprentice.attribtues.Contains(reqStatStr)){
+                    // this check fails, mission is failed
+                    Debug.Log("Mission failed.");
+                    succeedMission = false;
+                    failedMissions.Add(mission.missionName);
+                    missions.RemoveAt(missionIndex);
+                    // update player stats
+                    ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
+                    return succeedMission;
+                }
+                else{
+                    // this check passes
+                    continue;
+                }
+            }
+            else{ // Done with attributes, the rest are numbers
                 float reqStat = float.Parse(reqStatStr);
                 if(quailifier == "Loyalty"){
                     chanceToPass = AM.apprentice.loyalty/reqStat;
@@ -190,6 +214,7 @@ public class MissionManager : MonoBehaviour
             // this check fails
                     Debug.Log("Mission failed.");
                     succeedMission = false;
+                    failedMissions.Add(mission.missionName);
                     missions.RemoveAt(missionIndex);
                     // update player stats
                     ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
@@ -201,23 +226,14 @@ public class MissionManager : MonoBehaviour
         // If it gets through everything without failing, its a success!
         succeedMission = true;
         successfulMissions.Add(mission.missionName);
-
         missions.RemoveAt(missionIndex);
         // update player stats
         ApprenticeManager.AM.UpdateStatsMission(succeedMission, mission);
-        
+
         Debug.Log("Mission success.");
         return succeedMission;
     }
-
-    public string GenerateMissionName(){
-        string missionName = "";
-
-        return missionName;
-    }
-
-
-
+}
 /*
 
 
@@ -313,4 +329,4 @@ public class MissionManager : MonoBehaviour
 
 */
 
-}
+
