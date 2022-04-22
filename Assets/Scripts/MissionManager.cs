@@ -25,8 +25,9 @@ public class MissionManager : MonoBehaviour
     {
         AM = ApprenticeManager.AM;
 
-        missionsJSON = JsonUtility.FromJson<AllMissions>(allMissionsJson.text);
-        missions = missionsJSON.allMissions.ToList();
+        // missionsJSON = JsonUtility.FromJson<AllMissions>(allMissionsJson.text);
+        // missions = missionsJSON.allMissions.ToList();
+        InitMissions();
 
     }
 
@@ -34,6 +35,11 @@ public class MissionManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void InitMissions(){
+        missionsJSON = JsonUtility.FromJson<AllMissions>(allMissionsJson.text);
+        missions = missionsJSON.allMissions.ToList();
     }
 
 // GM calls this whenever we need to show a new set of missions

@@ -30,6 +30,12 @@ public class GameManager : MonoBehaviour
     // Events don't do anything, but functions can listen to them so they run when that event is invoked
     public UnityEvent onMissionResolved;
     public UnityEvent noMissionsAvailable;
+    [Space(5)]
+    [Header("UI")]
+    public GameObject startScreen;
+    public GameObject blackCover;
+
+
 
     void Awake(){
         GM = this;
@@ -124,19 +130,35 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    public void StartGame(){
+        startScreen.SetActive(false);
+        blackCover.GetComponent<CoverController>().FadeOut();
+        AudMan.PlayButtonSFX(1);
+        AudMan.PlayMiscSFX(1);
+    }
     public void GameOver(){
         restartButton.SetActive(true);
         AudMan.PlayMiscSFX(1);
         MM.missionHolder.SetActive(false);
     }
     public void RestartGame(){
-        SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+        //SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+        // Reset missions
+        ResetMissions();
+        // Reset apprentice
+        // Show new apprentice options
+        // Maintain years passed
+        // Maintain number of apprentices
+        StartGame();
+    }
+    public void ResetMissions(){
+        MM.InitMissions();
+    }
+    public void LoopGame(){
+
     }
 
     /*
-
-    Left off: Mission manager needs to check to see if there are any viable missions before trying to show any
-        Also, baby age 0 did older folks mission...
 
 
     TO DO
@@ -177,20 +199,31 @@ public class GameManager : MonoBehaviour
     [x] populate missions
     [x] Missions are read in from CSV
     [x] Missions in random order
-    [] Turn counter
     [] Win state
+        [] older than 18 and ran out of missions to do
+        [] restart at apprentice select
+        [] keep track of what apprentice this is
+        [] keep track of years passed
     [] Audio
-        [] Ambient
-        [] Hover
-        [] Click
-        [] New cards
+        [x] Ambient
+        [x] Hover
+        [x] Click
+        [x] New cards
         [] Resolving mission
             [] Success
             [] Failure
         [] Moving apprentice over
-        [] Birthday
-        [] Lose game
+        [x] Birthday
+        [x] Lose game
     [] More missions
+        - How many to support each age range? -> 12
+        current tally
+        0-5    : 4
+        6-11   : 6
+        12-17  : 8
+        18+    : 6
+        other  : 3s
+        Total  : 27
     [] More clarity in stats being checked / Mission chance of success is shown
     [] Missions show when more than one stat is updated
     [] More room to read missions
