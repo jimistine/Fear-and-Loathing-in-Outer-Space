@@ -41,10 +41,7 @@ public class MissionManager : MonoBehaviour
         missionsJSON = JsonUtility.FromJson<AllMissions>(allMissionsJson.text);
         missions = missionsJSON.allMissions.ToList();
     }
-
-// GM calls this whenever we need to show a new set of missions
-// Determine the number of missions to show, instantiate the cards
-    public void ShowMissions(){
+    public void ClearMissions(){
         onScreenMissions.Clear();
         if(missionHolder.transform.childCount != 0){
             //Debug.Log("Mission holder childeren count: " + missionHolder.transform.childCount);
@@ -53,6 +50,19 @@ public class MissionManager : MonoBehaviour
                 //missionCard.GetComponent<MissionCard>().missionCardAnimator.SetBool("MissionDone", true);
             }
         }
+    }
+// GM calls this whenever we need to show a new set of missions
+// Determine the number of missions to show, instantiate the cards
+    public void ShowMissions(){
+        // onScreenMissions.Clear();
+        // if(missionHolder.transform.childCount != 0){
+        //     //Debug.Log("Mission holder childeren count: " + missionHolder.transform.childCount);
+        //     foreach(Transform missionCard in missionHolder.transform){
+        //         Destroy(missionCard.gameObject);
+        //         //missionCard.GetComponent<MissionCard>().missionCardAnimator.SetBool("MissionDone", true);
+        //     }
+        // }
+        ClearMissions();
         if(maxMissionsToShow > CheckMissions()){
             missionsToShow = CheckMissions();
         }

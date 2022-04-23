@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
+    public MemoryManager Memory;
     public ApprenticeManager AM;
     public ApprenticeGenerator AG;
     public AudioManager AudMan;
     public ApprenticeCard ApprenticeCard;
     public int timePassed;
     public MissionManager MM;
-    public GameObject proceedButton;
-    public TextMeshProUGUI statusText;
     public List<string> birthdayWishes;
+    [TextArea(3, 10)]
+    public List<string> gameWon;
     [TextArea(3, 10)]
     public List<string> gameOverLoyalty;
     [TextArea(3, 10)]
@@ -25,30 +27,36 @@ public class GameManager : MonoBehaviour
     public List<string> gameOverPower;
     [TextArea(3, 10)]
     public List<string> gameOverConfidence;
-    public GameObject restartButton;
     int count = 0;
     // Events don't do anything, but functions can listen to them so they run when that event is invoked
     public UnityEvent onMissionResolved;
     public UnityEvent noMissionsAvailable;
     [Space(5)]
     [Header("UI")]
+    public GameObject restartButton;
+    public GameObject proceedButton;
+    public TextMeshProUGUI statusText;
     public GameObject startScreen;
     public GameObject blackCover;
 
 
-
     void Awake(){
         GM = this;
+        Memory = MemoryManager.Memory;
         onMissionResolved.AddListener(ToggleProceedButton);
         onMissionResolved.AddListener(GameOverCheck);
         noMissionsAvailable.AddListener(PassTime);
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start(){
+        InitGame();
     }
-
+    void InitGame(){
+        if(Memory.yearsPassed != 0){
+            StartGame();
+        }
+        MM.missionHolder = GameObject.Find("MissionHolder");
+    }
     // Update is called once per frame
     void Update()
     {
@@ -58,8 +66,13 @@ public class GameManager : MonoBehaviour
         PassTime();
         ApprenticeCard.UpdateApprenticeCard();
         if(MM.CheckMissions() == 0){
-            Debug.Log("No missions to show");
-            statusText.text = "The galaxy sleeps easily for there is naught to do but pass the time away. Proceed.";
+            if(AM.apprentice.age >= 18){
+                GameWin();
+            }
+            else{
+                Debug.Log("No missions to show");
+                statusText.text = "The galaxy sleeps easily for there is naught to do but pass the time away. Proceed.";
+            }
         }
         else{
             Debug.Log("Showing missions");
@@ -70,11 +83,15 @@ public class GameManager : MonoBehaviour
     }
     public void ApprenticeChosen(Apprentice newApprentice){
         AM.apprentice = newApprentice;
+        Memory.livingApprentices.Add(newApprentice.firstName + " " + newApprentice.lastName);
+        Memory.UpdateApprenticeList();
         statusText.text = "WHAT WILL YOU ASK OF THEM?";
+
         Proceed();  
     }
     public void PassTime(){
         timePassed ++;
+        Memory.yearsPassed ++;
         if(timePassed % 2 == 0){
             AM.apprentice.age += 1;
             Birthday();
@@ -88,47 +105,41 @@ public class GameManager : MonoBehaviour
             proceedButton.SetActive(true);
         }
     }
-
     public void Birthday(){
         ApprenticeCard.UpdateApprenticeCard();
         AudMan.PlayMiscSFX(0);
-        //birthdayWishes.Count(); i++)
         statusText.text = birthdayWishes[count];
         count++;
         if(count == birthdayWishes.Count){
             count = 0;
         }
     }
+   
     public void GameOverCheck(){
         if(AM.apprentice.loyalty <= 0){
             string gameOverText = gameOverLoyalty[Random.Range(0, gameOverLoyalty.Count)];
             gameOverText = gameOverText.Replace("Darth", AM.apprentice.firstName);
             statusText.text = gameOverText;
-
             GameOver();
         }
         else if(AM.apprentice.power <= 0){
             string gameOverText = gameOverPower[Random.Range(0, gameOverPower.Count)];
             gameOverText = gameOverText.Replace("Darth", AM.apprentice.firstName);
             statusText.text = gameOverText;
-
             GameOver();
         }
         else if(AM.apprentice.skill <= 0){
             string gameOverText = gameOverSkill[Random.Range(0, gameOverSkill.Count)];
             gameOverText = gameOverText.Replace("Darth", AM.apprentice.firstName);
             statusText.text = gameOverText;
-
             GameOver();
         }
         else if(AM.apprentice.confidence <= 0){
             string gameOverText = gameOverConfidence[Random.Range(0, gameOverConfidence.Count)];
             gameOverText = gameOverText.Replace("Darth", AM.apprentice.firstName);
             statusText.text = gameOverText;
-
             GameOver();
         }
-
     }
     public void StartGame(){
         startScreen.SetActive(false);
@@ -136,26 +147,29 @@ public class GameManager : MonoBehaviour
         AudMan.PlayButtonSFX(1);
         AudMan.PlayMiscSFX(1);
     }
+     public void GameWin(){
+        Debug.Log("Game won.");
+        MM.ClearMissions();
+        restartButton.GetComponentInChildren<TextMeshProUGUI>().text = "RECRUIT ANOTHER";
+        restartButton.SetActive(true);  
+        string gameWonText = gameWon[Random.Range(0, gameWon.Count)];
+        gameWonText = gameWonText.Replace("Darth", AM.apprentice.firstName);
+        statusText.text = gameWonText;
+    }
     public void GameOver(){
+        restartButton.GetComponentInChildren<TextMeshProUGUI>().text = "TRY AGAIN";  
+        string apprenticeToKill = Memory.livingApprentices.Last();
+        Memory.deadApprentices.Add(apprenticeToKill);
+        Memory.livingApprentices.Remove(Memory.livingApprentices.Last());
         restartButton.SetActive(true);
         AudMan.PlayMiscSFX(1);
         MM.missionHolder.SetActive(false);
     }
     public void RestartGame(){
-        //SceneManager.LoadScene( SceneManager.GetActiveScene().name );
-        // Reset missions
-        ResetMissions();
-        // Reset apprentice
-        // Show new apprentice options
-        // Maintain years passed
-        // Maintain number of apprentices
-        StartGame();
+        Memory.LoopGame();
     }
     public void ResetMissions(){
         MM.InitMissions();
-    }
-    public void LoopGame(){
-
     }
 
     /*
@@ -199,11 +213,12 @@ public class GameManager : MonoBehaviour
     [x] populate missions
     [x] Missions are read in from CSV
     [x] Missions in random order
-    [] Win state
+    [] Fix adding, subtracking attributes when resolving missions
+    [] Win state + Game looping
         [] older than 18 and ran out of missions to do
         [] restart at apprentice select
         [] keep track of what apprentice this is
-        [] keep track of years passed
+        [x] keep track of years passed
     [] Audio
         [x] Ambient
         [x] Hover
@@ -225,7 +240,7 @@ public class GameManager : MonoBehaviour
         other  : 3s
         Total  : 27
     [] More clarity in stats being checked / Mission chance of success is shown
-    [] Missions show when more than one stat is updated
+    [x] Missions show when more than one stat is updated
     [] More room to read missions
     */
 }

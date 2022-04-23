@@ -177,7 +177,7 @@ Transform:
   - {fileID: 979924280}
   - {fileID: 1501154210}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &112582289
 GameObject:
@@ -575,9 +575,9 @@ RectTransform:
   - {fileID: 2047350772}
   - {fileID: 1046024182}
   - {fileID: 793207580}
+  - {fileID: 539031121}
   - {fileID: 1758062901}
   - {fileID: 1448323483}
-  - {fileID: 539031121}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1032,7 +1032,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &539031120
 GameObject:
@@ -1047,7 +1047,7 @@ GameObject:
   - component: {fileID: 539031123}
   - component: {fileID: 539031122}
   m_Layer: 5
-  m_Name: Restart Button
+  m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1066,11 +1066,11 @@ RectTransform:
   m_Children:
   - {fileID: 129046551}
   m_Father: {fileID: 158529598}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 116, y: -40}
+  m_AnchoredPosition: {x: 116, y: -169}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &539031122
@@ -1260,19 +1260,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9245171d9dae3184186d4584c60a8abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Memory: {fileID: 0}
   AM: {fileID: 1099210580}
   AG: {fileID: 595773359}
   AudMan: {fileID: 23477967}
   ApprenticeCard: {fileID: 0}
   timePassed: 0
   MM: {fileID: 595773360}
-  proceedButton: {fileID: 793207579}
-  statusText: {fileID: 691775454}
   birthdayWishes:
   - Happy birthday, my apprentice.
   - Another year gone.
   - The bell of age rings again.
   - Older still, what will the year bring?
+  gameWon:
+  - You realize one day that the time has come. Darth is no longer the child they
+    were when you found them. They have grown into a powerful instrument of chaos
+    and glorious ruin. You transfer an amount of credits to an account in their name
+    and send them off in a ship of their own. They don't tell you where they plan
+    to go, but the tracking device embedded in the small of their back should keep
+    you informed enough.
+  - Against all odds, Darth has made it to the end of their training. They can no
+    longer live at the Castle if they wish to grow. They must now venture out into
+    the galaxy on a journey of their choosing. With their absence, the opportunity
+    for another apprentice arises...
+  - 'Darth''s training is all but complete. Their last mission, however, cannot be
+    completed at the castle, nor can you point them towards it.
+
+    "What is thy
+    bidding, my master?" they ask.
+
+    "Seek another of our kind, a powerful child.
+    But do not take on the first that you find. Once you have identified several,
+    choose the most powerful, and bring them here."'
   gameOverLoyalty:
   - Darth saw the wickedness in you and decided the galaxy was better off without 
     it. One morning your senses alert you to a threat as you wake up, but it's too
@@ -1304,13 +1323,15 @@ MonoBehaviour:
     in themself has disappeared completely. They tell you they simply cannot go on,
     they're leaving magic behind. As much as it pains you, you strike them down,
     for they cannot be allowed to exist if not under your control.
-  restartButton: {fileID: 539031120}
   onMissionResolved:
     m_PersistentCalls:
       m_Calls: []
   noMissionsAvailable:
     m_PersistentCalls:
       m_Calls: []
+  restartButton: {fileID: 539031120}
+  proceedButton: {fileID: 793207579}
+  statusText: {fileID: 691775454}
   startScreen: {fileID: 1448323482}
   blackCover: {fileID: 1758062897}
 --- !u!4 &595773358
@@ -1325,7 +1346,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &595773359
 MonoBehaviour:
@@ -1385,7 +1406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missionCard: {fileID: 201170525980698917, guid: 3b2953a40f356b14da59a546a21a1ed4, type: 3}
-  missionHolder: {fileID: 1046024181}
+  missionHolder: {fileID: 0}
   maxMissionsToShow: 2
   allMissionsJson: {fileID: 4900000, guid: ae18831f5a908f14286dc28a51d4ae6c, type: 3}
   onScreenMissions: []
@@ -1404,7 +1425,7 @@ GameObject:
   - component: {fileID: 691775455}
   - component: {fileID: 691775454}
   m_Layer: 5
-  m_Name: Status Text
+  m_Name: StatusText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1874,6 +1895,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: Proceed
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 23477967}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayButtonSFX
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2660,7 +2693,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1448323483}
   m_Layer: 5
-  m_Name: Start Screen
+  m_Name: StartScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2683,7 +2716,7 @@ RectTransform:
   - {fileID: 112582290}
   - {fileID: 2130835857}
   m_Father: {fileID: 158529598}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3315,7 +3348,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 158529598}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
