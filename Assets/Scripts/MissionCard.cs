@@ -11,10 +11,12 @@ public class MissionCard : MonoBehaviour
     public Animator missionCardAnimator;
     public Transform headerGroup;
     public AudioManager AM;
+    public ApprenticeCard appCard;
     public bool missionSuccess;
 
     void Awake(){
         AM = AudioManager.AudMan;
+        appCard = GameManager.GM.ApprenticeCard;
         // grab the mission
         if(GameManager.GM.MM.CheckMissions() == 0 ){
             Destroy(this.gameObject);
@@ -39,10 +41,20 @@ public class MissionCard : MonoBehaviour
         }
 
     }
+    public void ScaleStatDots(){
+        string passReqsHover;
+        passReqsHover = thisMission.passReqs;
+        Debug.Log("Pass reqs are: " + passReqsHover);
+        appCard.AnimateStatDots(passReqsHover);
+    }
+    public void ResetStatDots(){
+        appCard.AnimateStatDotsDefault();
+    }
     public void SendToResolve(){
         
         // Figure out if you succeeded and update the card accordingly
         missionSuccess = GameManager.GM.MM.ResolveMission(thisMission);
+        Debug.Log("Mission: " + thisMission.missionName + " passed -> "  + missionSuccess);
 
         missionCardAnimator.SetBool("MissionSelected", true);
 

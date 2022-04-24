@@ -145,13 +145,14 @@ public class GameManager : MonoBehaviour
         startScreen.SetActive(false);
         blackCover.GetComponent<CoverController>().FadeOut();
         AudMan.PlayButtonSFX(1);
-        AudMan.PlayMiscSFX(1);
+        //AudMan.PlayMiscSFX(1);
     }
      public void GameWin(){
         Debug.Log("Game won.");
         MM.ClearMissions();
         restartButton.GetComponentInChildren<TextMeshProUGUI>().text = "RECRUIT ANOTHER";
-        restartButton.SetActive(true);  
+        restartButton.SetActive(true);
+        proceedButton.SetActive(false);  
         string gameWonText = gameWon[Random.Range(0, gameWon.Count)];
         gameWonText = gameWonText.Replace("Darth", AM.apprentice.firstName);
         statusText.text = gameWonText;
@@ -162,6 +163,7 @@ public class GameManager : MonoBehaviour
         Memory.deadApprentices.Add(apprenticeToKill);
         Memory.livingApprentices.Remove(Memory.livingApprentices.Last());
         restartButton.SetActive(true);
+        proceedButton.SetActive(false);  
         AudMan.PlayMiscSFX(1);
         MM.missionHolder.SetActive(false);
     }
@@ -213,12 +215,13 @@ public class GameManager : MonoBehaviour
     [x] populate missions
     [x] Missions are read in from CSV
     [x] Missions in random order
-    [] Fix adding, subtracking attributes when resolving missions
-    [] Win state + Game looping
-        [] older than 18 and ran out of missions to do
-        [] restart at apprentice select
-        [] keep track of what apprentice this is
+    [x] Fix adding, subtracking attributes when resolving missions
+    [x] Win state + Game looping
+        [x] older than 18 and ran out of missions to do
+        [x] restart at apprentice select
+        [x] keep track of what apprentice this is
         [x] keep track of years passed
+        [-] display years passed
     [] Audio
         [x] Ambient
         [x] Hover
@@ -239,7 +242,9 @@ public class GameManager : MonoBehaviour
         18+    : 6
         other  : 3s
         Total  : 27
-    [] More clarity in stats being checked / Mission chance of success is shown
+    [x] More clarity in stats being checked / Mission chance of success is shown
+        [x] Dots next to each stat that will be checked
+        [x] Dots scale with scale of stat
     [x] Missions show when more than one stat is updated
     [] More room to read missions
     */

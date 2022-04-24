@@ -70,36 +70,41 @@ public class ApprenticeManager : MonoBehaviour
                 }
             }
         for(int i = 0; i < nameOfStatList.Count(); i++){
-            if(missionSuccess){
-                ApplyStatChange(nameOfStatList[i], float.Parse(valueOfStatList[i]));
-            }
-            else{
-                float valToLose = float.Parse(valueOfStatList[i]) * -1;
-                ApplyStatChange(nameOfStatList[i], valToLose);
-            }
+            Debug.Log("Applying: " + nameOfStatList[i] + " " + valueOfStatList[i]);
+            ApplyStatChange(nameOfStatList[i], valueOfStatList[i], missionSuccess);
         }
         GameManager.GM.ApprenticeCard.UpdateApprenticeCard();
     }
 
-    public void ApplyStatChange(string nameOfStat, float statChangeValue){
-        if(nameOfStat == "Loyalty"){
-            apprentice.loyalty += statChangeValue;
+    public void ApplyStatChange(string nameOfStat, string statChangeValue, bool missionSuccess){
+        if(nameOfStat  == "AddAttribute"){
+            if(!apprentice.attribtues.Contains(nameOfStat)){
+                apprentice.attribtues.Add(statChangeValue);
+            }
         }
-        else if(nameOfStat == "Power"){
-            apprentice.power += statChangeValue;
-        }
-        else if(nameOfStat == "Skill"){
-            apprentice.skill += statChangeValue;
-        }
-        else if(nameOfStat == "Confidence"){
-            apprentice.confidence += statChangeValue;
-        }
-        else if(apprentice.attribtues.Contains(nameOfStat)){
-            int attributeToRemoveIndex = apprentice.attribtues.IndexOf(nameOfStat);
-            apprentice.attribtues.RemoveAt(attributeToRemoveIndex);
+        else if(nameOfStat == "SubAttribute"){
+            if(apprentice.attribtues.Contains(nameOfStat)){
+                int indexOfAttribute = apprentice.attribtues.FindIndex(x => x.Contains(nameOfStat));
+                apprentice.attribtues.RemoveAt(indexOfAttribute);
+            }
         }
         else{
-            apprentice.attribtues.Add(nameOfStat);
+            float statChangeValueNum = float.Parse(statChangeValue);
+            if(!missionSuccess){
+                statChangeValueNum *= -1;
+            }
+            if(nameOfStat == "Loyalty"){
+                apprentice.loyalty += statChangeValueNum;
+            }
+            else if(nameOfStat == "Power"){
+                apprentice.power += statChangeValueNum;
+            }
+            else if(nameOfStat == "Skill"){
+                apprentice.skill += statChangeValueNum;
+            }
+            else if(nameOfStat == "Confidence"){
+                apprentice.confidence += statChangeValueNum;
+            }
         }
         Debug.Log("Added " + statChangeValue + " to " + nameOfStat);
     }

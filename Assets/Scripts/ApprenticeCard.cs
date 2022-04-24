@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using TMPro;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 public class ApprenticeCard : MonoBehaviour
 {
     public Apprentice thisApprentice;
-    public Animator cardAnimator;
-
     public AudioManager AudMan;
+    public Animator cardAnimator;
+    public List<Animator> dotAnims;
 
 
     void Start()
@@ -18,6 +20,64 @@ public class ApprenticeCard : MonoBehaviour
         thisApprentice = GameManager.GM.AG.GenerateApprentice();
         UpdateApprenticeCard();
     }
+    public void AnimateStatDots(string passReqs){
+        //dotAnimClip.
+        Debug.Log("Scaling Dots");
+        MatchCollection matchListRegex = Regex.Matches(passReqs, @"\w+");
+        var matchList = matchListRegex.Cast<Match>().Select(match => match.Value).ToList();
+
+        List<string> nameOfStatList = new List<string>();
+        List<string> valueOfStatList = new List<string>();
+
+        for(int i = 0; i < matchList.Count(); i++){
+            if(i % 2 == 0){
+                nameOfStatList.Add(matchList[i]);
+            }
+            else{
+                valueOfStatList.Add(matchList[i]);
+            }
+        }
+        for(int i = 0; i < nameOfStatList.Count(); i++){
+            if(nameOfStatList[i] == "Loyalty"){
+                dotAnims[0].SetFloat("DotScale", float.Parse(valueOfStatList[i])/10);
+            }
+            if(nameOfStatList[i] == "Power"){
+                dotAnims[1].SetFloat("DotScale", float.Parse(valueOfStatList[i])/10);
+            }
+            if(nameOfStatList[i] == "Skill"){
+                dotAnims[2].SetFloat("DotScale", float.Parse(valueOfStatList[i])/10);
+            }
+            if(nameOfStatList[i] == "Confidence"){
+                dotAnims[3].SetFloat("DotScale", float.Parse(valueOfStatList[i])/10);
+            }
+        }
+    }
+
+    public void AnimateStatDotsDefault(){
+        foreach(Animator dotAnimator in dotAnims){
+            dotAnimator.SetFloat("DotScale", -1);
+        }
+    }
+
+    /*
+    public IEnumerator SetZoom(Vector3 startP, Vector3 endP, Quaternion startR, Quaternion endR){    
+        float timeElapsed = 0;
+        while(timeElapsed < moveTime){
+            float t = timeElapsed/moveTime;
+            // we gon ease on out
+            t = Mathf.Sin(t * Mathf.PI * 0.5f);
+            heldBook.transform.position = Vector3.Lerp(startP, endP, t);
+            heldBook.transform.rotation = Quaternion.Lerp(startR, endR, t);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        // snap to end points once time is up
+        heldBook.transform.position = endP;
+        heldBook.transform.rotation = endR;
+    }
+    */
+
+
 
     public void UpdateApprenticeCard(){
         GameObject headerGroup = gameObject.transform.Find("HeaderGroup").gameObject;

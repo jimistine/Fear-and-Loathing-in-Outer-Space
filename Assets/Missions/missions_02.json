@@ -9,7 +9,7 @@
     "description": "You take Darth to a small room in which there is an adolescent Cardosian lion. A gift from a darrow root merchant you buy from. You tell your apprentice they are to remain in the room for 1 hour, at which point you will return and unlock the door.",
     "passReqs": "Power 10\nConfidence 10",
     "succeed": "Confidence 10\nPower 5",
-    "fail": "Power -5",
+    "fail": "Power -5, AddAttribute ResentsNature",
     "successText": "When you return you find Darth fast asleep on the stomach of the lion. When they wake up they tell you the've named it \"Paul\".",
     "failureText": "When you return you find Darth and the lion in opposite corners of the room, staring at one another. Your apprentice has bled on the floor and you can see from their arms whence it came. Your apprentice immediately leaves the room telling you they hate lions almost as much as lions hate them.",
     "previousMission": "None",

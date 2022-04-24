@@ -24,17 +24,7 @@ public class MissionManager : MonoBehaviour
     void Start()
     {
         AM = ApprenticeManager.AM;
-
-        // missionsJSON = JsonUtility.FromJson<AllMissions>(allMissionsJson.text);
-        // missions = missionsJSON.allMissions.ToList();
         InitMissions();
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void InitMissions(){
@@ -47,21 +37,12 @@ public class MissionManager : MonoBehaviour
             //Debug.Log("Mission holder childeren count: " + missionHolder.transform.childCount);
             foreach(Transform missionCard in missionHolder.transform){
                 Destroy(missionCard.gameObject);
-                //missionCard.GetComponent<MissionCard>().missionCardAnimator.SetBool("MissionDone", true);
             }
         }
     }
 // GM calls this whenever we need to show a new set of missions
 // Determine the number of missions to show, instantiate the cards
     public void ShowMissions(){
-        // onScreenMissions.Clear();
-        // if(missionHolder.transform.childCount != 0){
-        //     //Debug.Log("Mission holder childeren count: " + missionHolder.transform.childCount);
-        //     foreach(Transform missionCard in missionHolder.transform){
-        //         Destroy(missionCard.gameObject);
-        //         //missionCard.GetComponent<MissionCard>().missionCardAnimator.SetBool("MissionDone", true);
-        //     }
-        // }
         ClearMissions();
         if(maxMissionsToShow > CheckMissions()){
             missionsToShow = CheckMissions();
@@ -74,7 +55,6 @@ public class MissionManager : MonoBehaviour
             newMissionCard.transform.SetParent(missionHolder.transform);
         }
     }
-    
     public int CheckMissions(){
         int missionsAvailable = 0;
         foreach(Mission mission in missions){
@@ -147,7 +127,7 @@ public class MissionManager : MonoBehaviour
     }
 
     float chanceToPass;
-
+    // Called from mission card
     public bool ResolveMission(Mission mission){
         Debug.Log("Resolving: " + mission.missionName);
         bool succeedMission;
@@ -155,18 +135,19 @@ public class MissionManager : MonoBehaviour
 
         MatchCollection matchListRegex = Regex.Matches(mission.passReqs, @"\w+");
         var matchList = matchListRegex.Cast<Match>().Select(match => match.Value).ToList();
+        Debug.Log("Match list: " + matchList);
 
         List<string> nameOfStatList = new List<string>();
         List<string> valueOfStatList = new List<string>();
 
         for(int i = 0; i < matchList.Count(); i++){
-                if(i % 2 == 0){
-                    nameOfStatList.Add(matchList[i]);
-                }
-                else{
-                    valueOfStatList.Add(matchList[i]);
-                }
+            if(i % 2 == 0){
+                nameOfStatList.Add(matchList[i]);
             }
+            else{
+                valueOfStatList.Add(matchList[i]);
+            }
+        }
 
         for(int i = 0; i < nameOfStatList.Count(); i++){
             Debug.Log("Pass reqs: " + nameOfStatList[i] + " " + valueOfStatList[i]);
