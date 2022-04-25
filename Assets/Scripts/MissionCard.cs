@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 
 public class MissionCard : MonoBehaviour
@@ -35,8 +36,6 @@ public class MissionCard : MonoBehaviour
                 // Change the other description texts while we're here
                 thisMission.successText = thisMission.successText.Replace("Darth", ApprenticeManager.AM.apprentice.firstName);
                 thisMission.failureText = thisMission.failureText.Replace("Darth", ApprenticeManager.AM.apprentice.firstName);
-                // Chance of success
-                //headerGroup.Find("Chance of success").GetComponent<TextMeshProUGUI>().text = thisMission.successRate;
             }
         }
 
@@ -51,7 +50,6 @@ public class MissionCard : MonoBehaviour
         appCard.AnimateStatDotsDefault();
     }
     public void SendToResolve(){
-        
         // Figure out if you succeeded and update the card accordingly
         missionSuccess = GameManager.GM.MM.ResolveMission(thisMission);
         Debug.Log("Mission: " + thisMission.missionName + " passed -> "  + missionSuccess);
@@ -72,6 +70,7 @@ public class MissionCard : MonoBehaviour
         gameObject.tag = "chosenMission";
         foreach(GameObject card in GameObject.FindGameObjectsWithTag("missionCard")){
             card.GetComponent<MissionCard>().missionCardAnimator.SetBool("Visible", false);
+            card.GetComponentInChildren<Button>().interactable = false;
         }
     }
     public void playMissionCardSFX(int indexToPass){

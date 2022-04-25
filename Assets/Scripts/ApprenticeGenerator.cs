@@ -10,6 +10,14 @@ public class ApprenticeGenerator : MonoBehaviour
     int newAge;
     float newSkill;
     float newPower;
+    string output;
+
+    void Start(){
+        foreach(string attribute in possibleAttributes){
+            output = output + "\n" + attribute;
+            Debug.Log(output);
+        }
+    }
 
     public Apprentice GenerateApprentice(){
         Apprentice newApprentice = new Apprentice();
