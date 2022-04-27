@@ -13,10 +13,10 @@ public class ApprenticeGenerator : MonoBehaviour
     string output;
 
     void Start(){
-        foreach(string attribute in possibleAttributes){
-            output = output + "\n" + attribute;
-            Debug.Log(output);
-        }
+        // foreach(string attribute in possibleAttributes){
+        //     output = output + "\n" + attribute;
+        //     Debug.Log(output);
+        // }
     }
 
     public Apprentice GenerateApprentice(){
@@ -55,7 +55,7 @@ public class ApprenticeGenerator : MonoBehaviour
         return nameFormatted;
     }
     public float CalculateStartingLoyalty(){
-        float startingLoyalty = 100f - (newAge*5);
+        float startingLoyalty = 100f - (newAge * 3);
         return startingLoyalty;
     }
     public float CalculateStartingPower(){
@@ -69,7 +69,7 @@ public class ApprenticeGenerator : MonoBehaviour
         return startingSkill;
     }
     public float CalculateStartingConfidence(){
-        float startingConfidence = Mathf.Round((newPower + newSkill)/Random.Range(2,2.25f));
+        float startingConfidence = Mathf.Round((newPower + newSkill) / Random.Range(2, 2.25f));
         return startingConfidence;
     }
     public void AssignStartingAttributes(Apprentice newApprentice){

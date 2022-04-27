@@ -1421,22 +1421,22 @@ MonoBehaviour:
   - r
   - va
   possibleAttributes:
-  - Neurotic
-  - Depressed
-  - Curious
-  - Tempermental
-  - Pensive
   - Aggressive
-  - Kind
-  - Spiritual
-  - Suggestable
   - Aloof
+  - Charasmatic
+  - Curious
+  - Depressed
+  - Determined
   - Freaky
   - Happy
-  - Determined
-  - Sickly
-  - Charasmatic
   - Impatient
+  - Kind
+  - Neurotic
+  - Pensive
+  - Sickly
+  - Spiritual
+  - Suggestable
+  - Temperamental
 --- !u!114 &595773360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1452,7 +1452,7 @@ MonoBehaviour:
   missionCard: {fileID: 201170525980698917, guid: 3b2953a40f356b14da59a546a21a1ed4, type: 3}
   missionHolder: {fileID: 0}
   maxMissionsToShow: 2
-  allMissionsJson: {fileID: 4900000, guid: ae18831f5a908f14286dc28a51d4ae6c, type: 3}
+  allMissionsJson: {fileID: 4900000, guid: 1c24745d8c3a7894c9671e49b39cf216, type: 3}
   onScreenMissions: []
   successfulMissions: []
   failedMissions: []
@@ -3537,7 +3537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5943396, g: 0, b: 0, a: 0.14117648}
+  m_Color: {r: 0.5943396, g: 0, b: 0, a: 0.12156863}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

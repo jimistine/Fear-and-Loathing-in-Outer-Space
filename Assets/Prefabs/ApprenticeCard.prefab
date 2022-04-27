@@ -197,7 +197,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 273.16, y: 2.2883}
+  m_SizeDelta: {x: 242.5766, y: 2.2883}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8977583319817354496
 CanvasRenderer:
@@ -399,10 +399,8 @@ MonoBehaviour:
     confidence: 0
     skill: 0
     attribtues: []
-  cardAnimator: {fileID: 3766223184456622517}
-  dotAnim: {fileID: 7221126757702863378}
-  dotAnimClip: {fileID: 0}
   AudMan: {fileID: 0}
+  cardAnimator: {fileID: 3766223184456622517}
   dotAnims:
   - {fileID: 7221126757702863378}
   - {fileID: 8674067777852590567}

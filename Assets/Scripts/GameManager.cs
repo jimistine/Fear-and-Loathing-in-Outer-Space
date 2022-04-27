@@ -230,22 +230,23 @@ public class GameManager : MonoBehaviour
         [] Resolving mission
             [] Success
             [] Failure
-        [] Moving apprentice over
         [x] Birthday
         [x] Lose game
     [] More missions
         - How many to support each age range? -> 12
         current tally
-        0-5    : 4
-        6-11   : 6
-        12-17  : 8
-        18+    : 6
+        0-5    : 6
+        6-11   : 8
+        12-17  : 10
+        18+    : 8
         other  : 3s
-        Total  : 27
+        Total  : 35
     [x] More clarity in stats being checked / Mission chance of success is shown
         [x] Dots next to each stat that will be checked
         [x] Dots scale with scale of stat
     [x] Missions show when more than one stat is updated
     [] More room to read missions
+    [] Cap stats at 99
+    [] More severe loyalty penalties
     */
 }

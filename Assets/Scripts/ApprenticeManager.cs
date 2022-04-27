@@ -78,13 +78,13 @@ public class ApprenticeManager : MonoBehaviour
 
     public void ApplyStatChange(string nameOfStat, string statChangeValue, bool missionSuccess){
         if(nameOfStat  == "AddAttribute"){
-            if(!apprentice.attribtues.Contains(nameOfStat)){
+            if(!apprentice.attribtues.Contains(statChangeValue)){
                 apprentice.attribtues.Add(statChangeValue);
             }
         }
         else if(nameOfStat == "SubAttribute"){
-            if(apprentice.attribtues.Contains(nameOfStat)){
-                int indexOfAttribute = apprentice.attribtues.FindIndex(x => x.Contains(nameOfStat));
+            if(apprentice.attribtues.Contains(statChangeValue)){
+                int indexOfAttribute = apprentice.attribtues.FindIndex(x => x.Contains(statChangeValue));
                 apprentice.attribtues.RemoveAt(indexOfAttribute);
             }
         }

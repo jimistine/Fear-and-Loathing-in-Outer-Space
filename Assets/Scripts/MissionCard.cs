@@ -59,10 +59,14 @@ public class MissionCard : MonoBehaviour
         // we update the desc text on the animator behavior
         if(missionSuccess){
             thisMission.successText += "\n" + "<color=green>" + thisMission.succeed + "</color>";
+            thisMission.successText = thisMission.successText.Replace("AddAttribute", "+Attribute: ");
+            thisMission.successText = thisMission.successText.Replace("SubAttribute", "-Attribute: ");
             missionCardAnimator.SetBool("MissionSucceed", true);
         }
         else{
             thisMission.failureText += "\n" + "<color=red>" + thisMission.fail + "</color>";
+            thisMission.failureText = thisMission.failureText.Replace("AddAttribute", "+Attribute: ");
+            thisMission.failureText = thisMission.failureText.Replace("SubAttribute", "-Attribute: ");
             missionCardAnimator.SetBool("MissionSucceed", false);
         }
         // Turn on button to proceede to the next set of missions
@@ -70,7 +74,7 @@ public class MissionCard : MonoBehaviour
         gameObject.tag = "chosenMission";
         foreach(GameObject card in GameObject.FindGameObjectsWithTag("missionCard")){
             card.GetComponent<MissionCard>().missionCardAnimator.SetBool("Visible", false);
-            card.GetComponentInChildren<Button>().interactable = false;
+            card.SetActive(false);
         }
     }
     public void playMissionCardSFX(int indexToPass){
